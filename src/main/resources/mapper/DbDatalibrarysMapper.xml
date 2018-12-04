@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.retech.qc.mapper.DbDatalibrarysMapper" >
+  <resultMap id="BaseResultMap" type="com.retech.qc.entity.DbDatalibrarys" >
+    <id column="DataBaseID" property="databaseid" jdbcType="INTEGER" />
+    <result column="DataBaseName" property="databasename" jdbcType="VARCHAR" />
+    <result column="DataBaseCName" property="databasecname" jdbcType="VARCHAR" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+    <result column="MouldID" property="mouldid" jdbcType="INTEGER" />
+    <result column="Status" property="status" jdbcType="INTEGER" />
+    <result column="DataStepType" property="datasteptype" jdbcType="INTEGER" />
+    <result column="DataStatus" property="datastatus" jdbcType="INTEGER" />
+    <result column="IsWare" property="isware" jdbcType="INTEGER" />
+    <result column="PerfectFileCol" property="perfectfilecol" jdbcType="VARCHAR" />
+    <result column="ProcessFileCol" property="processfilecol" jdbcType="VARCHAR" />
+    <result column="ReadFileCol" property="readfilecol" jdbcType="VARCHAR" />
+    <result column="ParentMenuId" property="parentmenuid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DataBaseID, DataBaseName, DataBaseCName, Description, MouldID, Status, DataStepType, 
+    DataStatus, IsWare, PerfectFileCol, ProcessFileCol, ReadFileCol, ParentMenuId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.retech.qc.entity.DbDatalibrarysExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from db_datalibrarys
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from db_datalibrarys
+    where DataBaseID = #{databaseid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_datalibrarys
+    where DataBaseID = #{databaseid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.retech.qc.entity.DbDatalibrarysExample" >
+    delete from db_datalibrarys
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.retech.qc.entity.DbDatalibrarys" >
+    insert into db_datalibrarys (DataBaseID, DataBaseName, DataBaseCName, 
+      Description, MouldID, Status, 
+      DataStepType, DataStatus, IsWare, 
+      PerfectFileCol, ProcessFileCol, ReadFileCol, 
+      ParentMenuId)
+    values (#{databaseid,jdbcType=INTEGER}, #{databasename,jdbcType=VARCHAR}, #{databasecname,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{mouldid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{datasteptype,jdbcType=INTEGER}, #{datastatus,jdbcType=INTEGER}, #{isware,jdbcType=INTEGER}, 
+      #{perfectfilecol,jdbcType=VARCHAR}, #{processfilecol,jdbcType=VARCHAR}, #{readfilecol,jdbcType=VARCHAR}, 
+      #{parentmenuid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.retech.qc.entity.DbDatalibrarys" >
+    insert into db_datalibrarys
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="databaseid != null" >
+        DataBaseID,
+      </if>
+      <if test="databasename != null" >
+        DataBaseName,
+      </if>
+      <if test="databasecname != null" >
+        DataBaseCName,
+      </if>
+      <if test="description != null" >
+        Description,
+      </if>
+      <if test="mouldid != null" >
+        MouldID,
+      </if>
+      <if test="status != null" >
+        Status,
+      </if>
+      <if test="datasteptype != null" >
+        DataStepType,
+      </if>
+      <if test="datastatus != null" >
+        DataStatus,
+      </if>
+      <if test="isware != null" >
+        IsWare,
+      </if>
+      <if test="perfectfilecol != null" >
+        PerfectFileCol,
+      </if>
+      <if test="processfilecol != null" >
+        ProcessFileCol,
+      </if>
+      <if test="readfilecol != null" >
+        ReadFileCol,
+      </if>
+      <if test="parentmenuid != null" >
+        ParentMenuId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="databaseid != null" >
+        #{databaseid,jdbcType=INTEGER},
+      </if>
+      <if test="databasename != null" >
+        #{databasename,jdbcType=VARCHAR},
+      </if>
+      <if test="databasecname != null" >
+        #{databasecname,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="mouldid != null" >
+        #{mouldid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="datasteptype != null" >
+        #{datasteptype,jdbcType=INTEGER},
+      </if>
+      <if test="datastatus != null" >
+        #{datastatus,jdbcType=INTEGER},
+      </if>
+      <if test="isware != null" >
+        #{isware,jdbcType=INTEGER},
+      </if>
+      <if test="perfectfilecol != null" >
+        #{perfectfilecol,jdbcType=VARCHAR},
+      </if>
+      <if test="processfilecol != null" >
+        #{processfilecol,jdbcType=VARCHAR},
+      </if>
+      <if test="readfilecol != null" >
+        #{readfilecol,jdbcType=VARCHAR},
+      </if>
+      <if test="parentmenuid != null" >
+        #{parentmenuid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.retech.qc.entity.DbDatalibrarysExample" resultType="java.lang.Integer" >
+    select count(*) from db_datalibrarys
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update db_datalibrarys
+    <set >
+      <if test="record.databaseid != null" >
+        DataBaseID = #{record.databaseid,jdbcType=INTEGER},
+      </if>
+      <if test="record.databasename != null" >
+        DataBaseName = #{record.databasename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.databasecname != null" >
+        DataBaseCName = #{record.databasecname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        Description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mouldid != null" >
+        MouldID = #{record.mouldid,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        Status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.datasteptype != null" >
+        DataStepType = #{record.datasteptype,jdbcType=INTEGER},
+      </if>
+      <if test="record.datastatus != null" >
+        DataStatus = #{record.datastatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.isware != null" >
+        IsWare = #{record.isware,jdbcType=INTEGER},
+      </if>
+      <if test="record.perfectfilecol != null" >
+        PerfectFileCol = #{record.perfectfilecol,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processfilecol != null" >
+        ProcessFileCol = #{record.processfilecol,jdbcType=VARCHAR},
+      </if>
+      <if test="record.readfilecol != null" >
+        ReadFileCol = #{record.readfilecol,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentmenuid != null" >
+        ParentMenuId = #{record.parentmenuid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update db_datalibrarys
+    set DataBaseID = #{record.databaseid,jdbcType=INTEGER},
+      DataBaseName = #{record.databasename,jdbcType=VARCHAR},
+      DataBaseCName = #{record.databasecname,jdbcType=VARCHAR},
+      Description = #{record.description,jdbcType=VARCHAR},
+      MouldID = #{record.mouldid,jdbcType=INTEGER},
+      Status = #{record.status,jdbcType=INTEGER},
+      DataStepType = #{record.datasteptype,jdbcType=INTEGER},
+      DataStatus = #{record.datastatus,jdbcType=INTEGER},
+      IsWare = #{record.isware,jdbcType=INTEGER},
+      PerfectFileCol = #{record.perfectfilecol,jdbcType=VARCHAR},
+      ProcessFileCol = #{record.processfilecol,jdbcType=VARCHAR},
+      ReadFileCol = #{record.readfilecol,jdbcType=VARCHAR},
+      ParentMenuId = #{record.parentmenuid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.retech.qc.entity.DbDatalibrarys" >
+    update db_datalibrarys
+    <set >
+      <if test="databasename != null" >
+        DataBaseName = #{databasename,jdbcType=VARCHAR},
+      </if>
+      <if test="databasecname != null" >
+        DataBaseCName = #{databasecname,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        Description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="mouldid != null" >
+        MouldID = #{mouldid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        Status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="datasteptype != null" >
+        DataStepType = #{datasteptype,jdbcType=INTEGER},
+      </if>
+      <if test="datastatus != null" >
+        DataStatus = #{datastatus,jdbcType=INTEGER},
+      </if>
+      <if test="isware != null" >
+        IsWare = #{isware,jdbcType=INTEGER},
+      </if>
+      <if test="perfectfilecol != null" >
+        PerfectFileCol = #{perfectfilecol,jdbcType=VARCHAR},
+      </if>
+      <if test="processfilecol != null" >
+        ProcessFileCol = #{processfilecol,jdbcType=VARCHAR},
+      </if>
+      <if test="readfilecol != null" >
+        ReadFileCol = #{readfilecol,jdbcType=VARCHAR},
+      </if>
+      <if test="parentmenuid != null" >
+        ParentMenuId = #{parentmenuid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where DataBaseID = #{databaseid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.retech.qc.entity.DbDatalibrarys" >
+    update db_datalibrarys
+    set DataBaseName = #{databasename,jdbcType=VARCHAR},
+      DataBaseCName = #{databasecname,jdbcType=VARCHAR},
+      Description = #{description,jdbcType=VARCHAR},
+      MouldID = #{mouldid,jdbcType=INTEGER},
+      Status = #{status,jdbcType=INTEGER},
+      DataStepType = #{datasteptype,jdbcType=INTEGER},
+      DataStatus = #{datastatus,jdbcType=INTEGER},
+      IsWare = #{isware,jdbcType=INTEGER},
+      PerfectFileCol = #{perfectfilecol,jdbcType=VARCHAR},
+      ProcessFileCol = #{processfilecol,jdbcType=VARCHAR},
+      ReadFileCol = #{readfilecol,jdbcType=VARCHAR},
+      ParentMenuId = #{parentmenuid,jdbcType=INTEGER}
+    where DataBaseID = #{databaseid,jdbcType=INTEGER}
+  </update>
+</mapper>

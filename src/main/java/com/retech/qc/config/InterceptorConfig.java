@@ -1,0 +1,55 @@
+package com.retech.qc.config;
+
+
+import com.retech.qc.interceptor.LoginInterceptor;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.CacheControl;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+
+import java.util.concurrent.TimeUnit;
+
+@Configuration
+public class InterceptorConfig extends WebMvcConfigurationSupport {
+
+    /**
+     * 授权拦截的路径 addPathPatterns：拦截的路径 excludePathPatterns：不拦截的路径
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry){
+        registry.addInterceptor(new LoginInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/login","/tologin","/static/**");
+    }
+
+    /**
+     * 修改springboot中默认的静态文件路径
+     * addResourceHandler请求路径
+     * addResourceLocations 在项目中的资源路径
+     * setCacheControl 设置静态资源缓存时间
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/")
+                .setCacheControl(CacheControl.maxAge(1, TimeUnit.HOURS).cachePublic());
+        super.addResourceHandlers(registry);
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/welcome").setViewName("welcome");
+        registry.addViewController("/classes").setViewName("classes");
+        registry.addViewController("/dic").setViewName("dic");
+        registry.addViewController("/menu").setViewName("manager");
+        registry.addViewController("/role").setViewName("role");
+        registry.addViewController("/log").setViewName("log");
+        registry.addViewController("/manager").setViewName("manager");
+        registry.addViewController("/db/mould").setViewName("db/mould");
+        registry.addViewController("/db/datalibrary").setViewName("db/datalibrary");
+        registry.addViewController("/db/resource").setViewName("db/resource");
+        super.addViewControllers(registry);
+    }
+}

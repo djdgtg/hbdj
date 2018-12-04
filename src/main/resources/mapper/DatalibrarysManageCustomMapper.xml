@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.retech.qc.mapper.custom.DatalibrarysManageCustomMapper" >
+  <resultMap id="BaseResultMap" type="com.retech.qc.entity.custom.DatalibrarysCustomBean" >
+    <id column="DataBaseID" property="databaseid" jdbcType="INTEGER" />
+    <result column="DataBaseName" property="databasename" jdbcType="VARCHAR" />
+    <result column="DataBaseCName" property="databasecname" jdbcType="VARCHAR" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+    <result column="MouldID" property="mouldid" jdbcType="INTEGER" />
+    <result column="Status" property="status" jdbcType="INTEGER" />
+    <result column="DataStepType" property="datasteptype" jdbcType="INTEGER" />
+    <result column="DataStatus" property="datastatus" jdbcType="INTEGER" />
+    <result column="IsWare" property="isware" jdbcType="INTEGER" />
+    <result column="PerfectFileCol" property="perfectfilecol" jdbcType="VARCHAR" />
+    <result column="ProcessFileCol" property="processfilecol" jdbcType="VARCHAR" />
+    <result column="ReadFileCol" property="readfilecol" jdbcType="VARCHAR" />
+    <result column="MouldName" property="mouldname" jdbcType="VARCHAR" />
+    <result column="MouldType" property="mouldtype" jdbcType="INTEGER" />
+    <result column="MouldTypeName" property="mouldtypename" jdbcType="VARCHAR" />
+    <result column="StatusName" property="statusname" jdbcType="VARCHAR" />
+    <result column="DataStepTypeName" property="datasteptypename" jdbcType="VARCHAR" />
+    <result column="ParentMenuId" property="parentmenuid" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    DataBaseID, DataBaseName, DataBaseCName, a.Description, a.MouldID as MouldID, Status, DataStepType, ParentMenuId,
+    DataStatus, IsWare, PerfectFileCol, ProcessFileCol, ReadFileCol,b.MouldName as MouldName,b.MouldType as MouldType,
+    d.DicName as MouldTypeName,c.DicName as StatusName,e.DicName as DataStepTypeName
+  </sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.retech.qc.entity.custom.DataLibrarysManageSearchBean" >
+    select
+    <include refid="Base_Column_List" />
+    from db_datalibrarys a left join db_moulds b on a.MouldID = b.MouldID
+    left join base_dics c on a.Status = c.DicValue
+    left join base_dics d on b.MouldType = d.DicValue
+    left join base_dics e on a.DataStepType = e.DicValue
+    where c.isdictype = 0 and d.isdictype = 0 and e.isdictype = 0 
+    and c.dictype = 'globalstatus' and d.dictype = 'mouldtype' and e.dictype = 'ressteptype'
+    <if test="databaseName != null and databaseName != ''" >
+    	and DataBaseName = #{databaseName}
+    </if>
+    <if test="databaseCName != null and databaseCName != ''" >
+    	and DataBaseCName = #{databaseCName}
+    </if>
+    <if test="status != null and status != ''" >
+    	and Status = #{status}
+    </if>
+    <if test="mouldId != null and mouldId != ''" >
+    	and a.MouldID = #{mouldId}
+    </if>
+    <if test="isWare != null and isWare != ''" >
+    	and IsWare = #{isWare}
+    </if>
+    order by DataBaseID desc
+  </select>
+  
+  <select id="countByExample" parameterType="com.retech.qc.entity.custom.DataLibrarysManageSearchBean" resultType="java.lang.Integer" >
+    select count(a.DataBaseID) 
+    from db_datalibrarys a left join db_moulds b on a.MouldID = b.MouldID
+    left join base_dics c on a.Status = c.DicValue
+    left join base_dics d on b.MouldType = d.DicValue
+    left join base_dics e on a.DataStepType = e.DicValue
+    where c.isdictype = 0 and d.isdictype = 0 and e.isdictype = 0 
+    and c.dictype = 'globalstatus' and d.dictype = 'mouldtype' and e.dictype = 'ressteptype'
+    <if test="databaseName != null and databaseName != ''" >
+    	and DataBaseName = #{databaseName}
+    </if>
+    <if test="databaseCName != null and databaseCName != ''" >
+    	and DataBaseCName = #{databaseCName}
+    </if>
+    <if test="status != null and status != ''" >
+    	and Status = #{status}
+    </if>
+    <if test="mouldId != null and mouldId != ''" >
+    	and a.MouldID = #{mouldId}
+    </if>
+    <if test="isWare != null and isWare != ''" >
+    	and IsWare = #{isWare}
+    </if>
+  </select>
+  
+  
+  <!-- 检查唯一性 -->
+  <select id="checkUniqueness" resultType="java.lang.Integer" parameterType="com.retech.qc.entity.custom.DatalibrarysCustomBean" >
+    select count(DataBaseID) from db_datalibrarys
+    <where>
+        <if test="databaseid != null and databaseid != ''">
+           and DataBaseID != #{databaseid}
+        </if>
+        <if test="databasename != null and databasename != ''">
+           and DataBaseName = #{databasename}
+        </if>
+    </where>
+  </select>  
+  <delete id="deleteBatch" parameterType="java.lang.String" >
+    delete from db_datalibrarys
+    where DataBaseID in 
+    <foreach item="dbMsg" collection="list" open="(" separator="," close=")">
+	#{dbMsg}
+	</foreach>
+  </delete>
+  <insert id="insertSelective" parameterType="com.retech.qc.entity.custom.DatalibrarysCustomBean" useGeneratedKeys="true" keyProperty="databaseid" >
+    insert into db_datalibrarys
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="databaseid != null" >
+        DataBaseID,
+      </if>
+      <if test="databasename != null" >
+        DataBaseName,
+      </if>
+      <if test="databasecname != null" >
+        DataBaseCName,
+      </if>
+      <if test="description != null" >
+        Description,
+      </if>
+      <if test="mouldid != null" >
+        MouldID,
+      </if>
+      <if test="status != null" >
+        Status,
+      </if>
+      <if test="datasteptype != null" >
+        DataStepType,
+      </if>
+      <if test="datastatus != null" >
+        DataStatus,
+      </if>
+      <if test="isware != null" >
+        IsWare,
+      </if>
+      <if test="perfectfilecol != null" >
+        PerfectFileCol,
+      </if>
+      <if test="processfilecol != null" >
+        ProcessFileCol,
+      </if>
+      <if test="readfilecol != null" >
+        ReadFileCol,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="databaseid != null" >
+        #{databaseid,jdbcType=INTEGER},
+      </if>
+      <if test="databasename != null" >
+        #{databasename,jdbcType=VARCHAR},
+      </if>
+      <if test="databasecname != null" >
+        #{databasecname,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="mouldid != null" >
+        #{mouldid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="datasteptype != null" >
+        #{datasteptype,jdbcType=INTEGER},
+      </if>
+      <if test="datastatus != null" >
+        #{datastatus,jdbcType=INTEGER},
+      </if>
+      <if test="isware != null" >
+        #{isware,jdbcType=INTEGER},
+      </if>
+      <if test="perfectfilecol != null" >
+        #{perfectfilecol,jdbcType=VARCHAR},
+      </if>
+      <if test="processfilecol != null" >
+        #{processfilecol,jdbcType=VARCHAR},
+      </if>
+      <if test="readfilecol != null" >
+        #{readfilecol,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.retech.qc.entity.custom.DatalibrarysCustomBean" >
+    update db_datalibrarys
+    <set >
+      <if test="databasename != null" >
+        DataBaseName = #{databasename,jdbcType=VARCHAR},
+      </if>
+      <if test="databasecname != null" >
+        DataBaseCName = #{databasecname,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        Description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="mouldid != null" >
+        MouldID = #{mouldid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        Status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="datasteptype != null" >
+        DataStepType = #{datasteptype,jdbcType=INTEGER},
+      </if>
+      <if test="datastatus != null" >
+        DataStatus = #{datastatus,jdbcType=INTEGER},
+      </if>
+      <if test="isware != null" >
+        IsWare = #{isware,jdbcType=INTEGER},
+      </if>
+      <if test="perfectfilecol != null" >
+        PerfectFileCol = #{perfectfilecol,jdbcType=VARCHAR},
+      </if>
+      <if test="processfilecol != null" >
+        ProcessFileCol = #{processfilecol,jdbcType=VARCHAR},
+      </if>
+      <if test="readfilecol != null" >
+        ReadFileCol = #{readfilecol,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DataBaseID = #{databaseid,jdbcType=INTEGER}
+  </update>
+  
+  <update id="dropTable">  
+    drop table if exists ${tableName}     
+  </update>  
+      
+  <update id="createNewTable" parameterType="String">  
+     ${sql}
+  </update> 
+  <update id="alterTable" parameterType="String" >  
+     ${sql}
+  </update> 
+   
+  <select id="showColumns" parameterType="String" resultType="java.lang.String" >  
+     select COLUMN_NAME from information_schema.COLUMNS where table_name = #{tableName,jdbcType=VARCHAR};
+  </select> 
+  
+  <select id="getResCount" parameterType="String" resultType="java.lang.Integer" >  
+     ${sql}
+  </select> 
+  <update id="editRes" parameterType="String" >  
+     ${sql}
+  </update> 
+  
+  <select id="checkunique" parameterType="String" resultType="java.lang.Integer">  
+     ${sql}
+  </select> 
+  
+  <select id="getResList" parameterType="String" resultType="java.util.LinkedHashMap" >  
+     ${sql}
+  </select> 
+  
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select distinct db.* from db_datalibrarys db,base_mgdatalibrary u where u.UserID = #{userId,jdbcType=VARCHAR}
+  </select>
+</mapper>
