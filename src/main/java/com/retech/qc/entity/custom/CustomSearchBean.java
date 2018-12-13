@@ -2,36 +2,42 @@ package com.retech.qc.entity.custom;
 
 import java.util.List;
 
+
+/**
+ * @author qinc
+ * @description
+ * @date 2018/12/11
+ */
 public class CustomSearchBean {
-	
-	private Integer start;
-	
-	private Integer length;
-	
-	private List<Order> order = null;
 
-	public Integer getStart() {
-		return start;
-	}
+    private Integer start;
 
-	public void setStart(Integer start) {
-		this.start = start;
-	}
+    private Integer length;
 
-	public Integer getLength() {
-		return length;
-	}
+    private List<Order> order = null;
 
-	public void setLength(Integer length) {
-		this.length = length;
-	}
+    public Integer getStart() {
+        return start;
+    }
 
-	public List<Order> getOrder() {
-		return order;
-	}
+    public void setStart(Integer start) {
+        this.start = start;
+    }
 
-	public void setOrder(List<Order> order) {
-		this.order = order;
-	}
-	
+    public Integer getLength() {
+        return length;
+    }
+
+    public void setLength(Integer length) {
+        this.length = length;
+    }
+
+    public List<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(List<Order> order) {
+        this.order = order;
+    }
+
 }

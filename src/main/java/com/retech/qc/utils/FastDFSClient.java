@@ -19,6 +19,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
+/**
+ * @author qinc
+ * @description
+ * @date 2018/12/11
+ */
 @Component
 public class FastDFSClient {
 
@@ -32,37 +37,40 @@ public class FastDFSClient {
 
     /**
      * 上传文件
+     *
      * @param file 文件对象
      * @return 文件访问地址
      * @throws IOException
      */
     public String uploadFile(MultipartFile file) throws IOException {
-        StorePath storePath = storageClient.uploadFile(file.getInputStream(),file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()),null);
+        StorePath storePath = storageClient.uploadFile(file.getInputStream(), file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()), null);
         return getResAccessUrl(storePath);
     }
 
     /**
      * 上传文件
+     *
      * @param file 文件对象
      * @return 文件访问地址
      * @throws IOException
      */
     public String uploadFile(File file) throws IOException {
         FileInputStream inputStream = new FileInputStream(file);
-        StorePath storePath = storageClient.uploadFile(inputStream,file.length(),FilenameUtils.getExtension(file.getName()),null);
+        StorePath storePath = storageClient.uploadFile(inputStream, file.length(), FilenameUtils.getExtension(file.getName()), null);
         return getResAccessUrl(storePath);
     }
 
     /**
      * 将一段字符串生成一个文件上传
-     * @param content 文件内容
+     *
+     * @param content       文件内容
      * @param fileExtension
      * @return
      */
     public String uploadFile(String content, String fileExtension) {
         byte[] buff = content.getBytes(Charset.forName("UTF-8"));
         ByteArrayInputStream stream = new ByteArrayInputStream(buff);
-        StorePath storePath = storageClient.uploadFile(stream,buff.length, fileExtension,null);
+        StorePath storePath = storageClient.uploadFile(stream, buff.length, fileExtension, null);
         return getResAccessUrl(storePath);
     }
 
@@ -75,10 +83,11 @@ public class FastDFSClient {
 
     /**
      * 下载文件
+     *
      * @param fileUrl 文件url
      * @return
      */
-    public byte[]  download(String fileUrl) {
+    public byte[] download(String fileUrl) {
         String group = fileUrl.substring(0, fileUrl.indexOf("/"));
         String path = fileUrl.substring(fileUrl.indexOf("/") + 1);
         byte[] bytes = storageClient.downloadFile(group, path, new DownloadByteArray());
@@ -87,6 +96,7 @@ public class FastDFSClient {
 
     /**
      * 删除文件
+     *
      * @param fileUrl 文件访问地址
      * @return
      */

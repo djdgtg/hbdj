@@ -1,24 +1,25 @@
 server:
   port: 8080
+  error:
+    path: /error/404
   servlet:
     context-path: /hbdj
 
 spring:
-  #Êı¾İÔ´
+  #æ•°æ®æº
   datasource:
     name: springboot
     url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: root
-    # Ê¹ÓÃdruidÊı¾İÔ´
+    # ä½¿ç”¨druidæ•°æ®æº
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-
-  #Ê±¼ä´ÁÍ³Ò»×ª»»
+  #æ—¶é—´æˆ³ç»Ÿä¸€è½¬æ¢
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-  #ÊÓÍ¼½âÎö²ã
+  #è§†å›¾è§£æå±‚
   mvc:
     view:
       prefix: /templates/
@@ -26,17 +27,20 @@ spring:
 
 fileserver:
   url: http://123.59.199.170/
-# ·Ö²¼Ê½ÎÄ¼şÏµÍ³FDFSÅäÖÃ
-  #ĞÂµÄ
+# åˆ†å¸ƒå¼æ–‡ä»¶ç³»ç»ŸFDFSé…ç½®
 fdfs:
   so-timeout: 1501
   connect-timeout: 601
-  thumb-image:             #ËõÂÔÍ¼Éú³É²ÎÊı
+  thumb-image:             #ç¼©ç•¥å›¾ç”Ÿæˆå‚æ•°
     width: 150
     height: 150
-  tracker-list:            #TrackerList²ÎÊı,Ö§³Ö¶à¸ö
+  tracker-list:            #TrackerListå‚æ•°,æ”¯æŒå¤šä¸ª
   - 123.59.199.170:22122
 
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: com.retech.qc.entity
+
+logging:
+  config: classpath:logback-spring.xml
+

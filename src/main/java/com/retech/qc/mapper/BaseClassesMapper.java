@@ -2,10 +2,17 @@ package com.retech.qc.mapper;
 
 import com.retech.qc.entity.BaseClasses;
 import com.retech.qc.entity.BaseClassesExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
+/**
+ * @author qinc
+ * @description
+ * @date 2018/12/11
+ */
 public interface BaseClassesMapper {
+
     int countByExample(BaseClassesExample example);
 
     int deleteByExample(BaseClassesExample example);

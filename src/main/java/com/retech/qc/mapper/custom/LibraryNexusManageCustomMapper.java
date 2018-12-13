@@ -1,14 +1,19 @@
 package com.retech.qc.mapper.custom;
 
 import com.retech.qc.entity.DbLibrarynexus;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+
 /**
- * 自定义mapper类
+
+ *@description
+
+ *@author qinc
+
+ *@date 2018/12/11
+
  */
-@Repository
 public interface LibraryNexusManageCustomMapper {
 	/**
 	 * 根据资源库查询关系

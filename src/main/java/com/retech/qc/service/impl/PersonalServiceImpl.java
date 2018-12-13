@@ -37,6 +37,15 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Map.Entry;
 
+/**
+
+ *@description
+ 
+ *@author qinc
+
+ *@date 2018/12/11
+
+ */
 @Service
 public class PersonalServiceImpl implements PersonalService {
 	
@@ -104,9 +113,9 @@ public class PersonalServiceImpl implements PersonalService {
 			target.delete();
 		}
 		int savetotal = 0;
-		int rows = 0;
+		int rows;
 		int nums=0;
-		FileInputStream fis = null;
+		FileInputStream fis ;
 		try {
 			FileUtils.copyInputStreamToFile(file.getInputStream(), target);
 			CustomQueryBean creatoruser = new CustomQueryBean();
@@ -121,7 +130,7 @@ public class PersonalServiceImpl implements PersonalService {
 			XSSFWorkbook wookbook = new XSSFWorkbook(fis); // 创建对Excel工作簿文件的引用
 			XSSFSheet sheet = wookbook.getSheetAt(0); // 在Excel文档中，第一张工作表的缺省索引是0
 			rows = sheet.getPhysicalNumberOfRows(); // 获取到Excel文件中的所有行数­
-			Map<Integer, String> keys = new HashMap<Integer, String>();
+			Map<Integer, String> keys = new HashMap<>();
 			int cells = 0;
 			// 遍历行­（第1行 表头） 准备Map里的key
 			XSSFRow firstRow = sheet.getRow(0);
@@ -171,7 +180,7 @@ public class PersonalServiceImpl implements PersonalService {
 					}
 					// 一行所有的列数据读取完毕
 					// 入库
-					boolean b = addExcelData(databaseName,mouldId, returnlist,loginUser);
+					boolean b = addExcelData(databaseName,mouldId, returnlist);
 					if (b) {
 						savetotal++;
 					}
@@ -225,7 +234,7 @@ public class PersonalServiceImpl implements PersonalService {
 	}
 
 	
-	private boolean addExcelData(String databaseName, String mouldId, List<CustomQueryBean> queryList, BaseManagers loginUser) {
+	private boolean addExcelData(String databaseName, String mouldId, List<CustomQueryBean> queryList) {
 		StringBuffer nameSql = new StringBuffer();
 		StringBuffer valueSql = new StringBuffer();
 		List<MetadatasCustomBean> list = metadatasCustomMapper.selectByExample(mouldId);
@@ -252,8 +261,8 @@ public class PersonalServiceImpl implements PersonalService {
 				}
 			}
 		}
-		String nameSqlStr = nameSql.substring(0, nameSql.length() - 1).toString();
-		String valueSqlStr = valueSql.substring(0, valueSql.length() - 1).toString();
+		String nameSqlStr = nameSql.substring(0, nameSql.length() - 1);
+		String valueSqlStr = valueSql.substring(0, valueSql.length() - 1);
 		String sql = "insert into " + databaseName + " (" + nameSqlStr + ") values(" + valueSqlStr + ")";
 		int inRes = datalibrarysCustomMapper.alterTable(sql);
 		return inRes > 0;
@@ -316,16 +325,15 @@ public class PersonalServiceImpl implements PersonalService {
 				}
 			}
 			// 处理列名字符串
-			List<String> headColumnName = new ArrayList<String>();
-			headColumnName = Arrays.asList(colNames.split(","));
+			List<String> headColumnName = Arrays.asList(colNames.split(","));
 			// 写数据到Excel文件
 			XSSFWorkbook workbook = exportExcel(headColumnName, type, databaseName, mouldId,datetimelist,downData,downRows);
 			String filename = databasecname + "导入模板.xlsx";
 			if (("1").equals(type)) {
 				filename = databasecname + "数据导出" + DateFormatUtils.format(new Date(), "yyyy-MM-dd") + ".xlsx";
 			}
-			String downloadFileName = "";
-			String agent = (String) request.getHeader("USER-AGENT");
+			String downloadFileName;
+			String agent = request.getHeader("USER-AGENT");
 			if (agent != null && agent.toLowerCase().indexOf("firefox") > 0) {
 				downloadFileName = "=?UTF-8?B?" + (new String(Base64.encodeBase64(filename.getBytes("UTF-8")))) + "?=";
 			} else {
@@ -379,8 +387,8 @@ public class PersonalServiceImpl implements PersonalService {
 		style.setTopBorderColor(IndexedColors.BLACK.getIndex());
 
 		Row row;
-		Cell cell = null;
-		XSSFSheet sheet = null;
+		Cell cell;
+		XSSFSheet sheet;
 		sheet =workBook.createSheet("资源数据");
 		row = sheet.createRow(0);// 第一行，标题
 		// 如果没有设置要下载的字段
@@ -456,7 +464,7 @@ public class PersonalServiceImpl implements PersonalService {
 			List<MetadatasCustomBean> metaList = metadatasCustomMapper.selectByExample(db.getMouldid().toString());
 
 			if (metaList == null) {
-				metaList = new ArrayList<MetadatasCustomBean>();
+				metaList = new ArrayList<>();
 			}
 			List<MetadatasCustomBean> sysMetaList = Constants.initSysMetaList();
 			for (int i = 0; i < sysMetaList.size(); i++) {
@@ -477,7 +485,7 @@ public class PersonalServiceImpl implements PersonalService {
 				whereSql.append(" and creatorid=").append(dataLibrarysManageSearchBean.getUserId());
 			}
 
-			List<MetadatasCustomBean> rMetaList = new ArrayList<MetadatasCustomBean>();
+			List<MetadatasCustomBean> rMetaList = new ArrayList<>();
 			String showCol = "";
 			for (MetadatasCustomBean metadatasCustomBean : metaList) {
 				if (null != metadatasCustomBean.getImportandexportshow()
@@ -498,7 +506,7 @@ public class PersonalServiceImpl implements PersonalService {
 
 			String sqlCount = "select count(1) from " + db.getDatabasename() + " " + whereSql.toString();
 			int count = datalibrarysCustomMapper.getResCount(sqlCount);
-			String sqlList = "";
+			String sqlList ;
 			if (count > 0) {
 				if (showCol.contains("creatorid")) {
 					showCol = showCol.replaceAll("creatorid,", "");
@@ -515,7 +523,7 @@ public class PersonalServiceImpl implements PersonalService {
 				List<LinkedHashMap<String, Object>> resultList = new ArrayList<>();
 
 				if (rMetaList != null && rMetaList.size() > 0) {
-					Map<String, List<?>> list = new HashMap<String, List<?>>();
+					Map<String, List<?>> list = new HashMap<>();
 					for (MetadatasCustomBean metaCustom : rMetaList) {
 						switch (metaCustom.getColumnsource()) {
 						case Constants.COlUMNSOURCE_DIC:
@@ -552,12 +560,11 @@ public class PersonalServiceImpl implements PersonalService {
 									}
 								}
 							}
-
 							list.put(metaCustom.getColumnname(), nexusResList);
 							break;
 						}
 						for (int i = 0; i < resList.size(); i++) {
-							LinkedHashMap<String, Object> resMap = (LinkedHashMap<String, Object>) resList.get(i);
+							LinkedHashMap<String, Object> resMap = resList.get(i);
 							resMap.put(metaCustom.getColumnname() + "Name", null);
 						}
 					}

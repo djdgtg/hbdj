@@ -11,6 +11,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 
 import java.util.concurrent.TimeUnit;
 
+
+/**
+ * @author qinc
+ * @description
+ * @date 2018/12/11
+ */
 @Configuration
 public class InterceptorConfig extends WebMvcConfigurationSupport {
 
@@ -18,10 +24,10 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
      * 授权拦截的路径 addPathPatterns：拦截的路径 excludePathPatterns：不拦截的路径
      */
     @Override
-    public void addInterceptors(InterceptorRegistry registry){
+    public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/login","/tologin","/static/**");
+                .excludePathPatterns("/login", "/tologin", "/static/**");
     }
 
     /**
@@ -43,7 +49,7 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
         registry.addViewController("/welcome").setViewName("welcome");
         registry.addViewController("/classes").setViewName("classes");
         registry.addViewController("/dic").setViewName("dic");
-        registry.addViewController("/menu").setViewName("manager");
+        registry.addViewController("/menu").setViewName("menu");
         registry.addViewController("/role").setViewName("role");
         registry.addViewController("/log").setViewName("log");
         registry.addViewController("/manager").setViewName("manager");

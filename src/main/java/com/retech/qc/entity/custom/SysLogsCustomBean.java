@@ -2,35 +2,31 @@ package com.retech.qc.entity.custom;
 
 import com.retech.qc.entity.BaseLogs;
 
+
+/**
+ * @author qinc
+ * @description
+ * @date 2018/12/11
+ */
 public class SysLogsCustomBean extends BaseLogs {
-	private String creatorName;
-	private String logTypeName;
 
-	/**
-	 * @return the creatorName
-	 */
-	public String getCreatorName() {
-		return creatorName;
-	}
+    private String creatorName;
 
-	/**
-	 * @param creatorName the creatorName to set
-	 */
-	public void setCreatorName(String creatorName) {
-		this.creatorName = creatorName;
-	}
+    private String logTypeName;
 
-	/**
-	 * @return the logTypeName
-	 */
-	public String getLogTypeName() {
-		return logTypeName;
-	}
+    public String getCreatorName() {
+        return creatorName;
+    }
 
-	/**
-	 * @param logTypeName the logTypeName to set
-	 */
-	public void setLogTypeName(String logTypeName) {
-		this.logTypeName = logTypeName;
-	}
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
+    }
+
+    public String getLogTypeName() {
+        return logTypeName;
+    }
+
+    public void setLogTypeName(String logTypeName) {
+        this.logTypeName = logTypeName;
+    }
 }

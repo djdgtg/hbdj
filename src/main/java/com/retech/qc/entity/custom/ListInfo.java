@@ -3,9 +3,15 @@ package com.retech.qc.entity.custom;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author qinc
+ * @description
+ * @date 2018/12/11
+ */
 public class ListInfo {
 
     private int length = 0;
+
     private List list = new ArrayList();
 
     public int getLength() {

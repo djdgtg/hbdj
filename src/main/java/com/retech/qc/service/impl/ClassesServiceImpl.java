@@ -15,6 +15,16 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+
+ *@description
+ 
+ *@author qinc
+
+ *@date 2018/12/11
+
+ */
 @Service
 public class ClassesServiceImpl implements ClassesService {
 
@@ -78,8 +88,8 @@ public class ClassesServiceImpl implements ClassesService {
 	@Override
 	public ActionResult treeList() {
 		List<ClassesCustomBean> list = classesCustomMapper.selectByExample(new BaseClassesExample());
-		List<TreeBean> parentClassList = new ArrayList<TreeBean>();
-		List<TreeBean> childClassList = new ArrayList<TreeBean>();
+		List<TreeBean> parentClassList = new ArrayList<>();
+		List<TreeBean> childClassList = new ArrayList<>();
 		for (ClassesCustomBean baseClasses : list) {
 			TreeBean treeBean = new TreeBean();
 			treeBean.setId(baseClasses.getClassid());
@@ -101,13 +111,7 @@ public class ClassesServiceImpl implements ClassesService {
 		cNode.setParentId(-1);
 		cNode.setNodes(parentClassList);
 		classesTreeList.add(cNode);
-		for (TreeBean menuVo : parentClassList) {
-			List<TreeBean> iterateMenus = TreeBean.iterateMenus(childClassList, menuVo.getId());
-			if (iterateMenus != null && iterateMenus.size() > 0) {
-				menuVo.setNodes(iterateMenus);
-				menuVo.setChildren(iterateMenus);
-			}
-		}
+		TreeBean.iteraterMenus(parentClassList,childClassList);
 		ListInfo listInfo = new ListInfo();
 		listInfo.setLength(classesTreeList.size());
 		listInfo.setList(classesTreeList);

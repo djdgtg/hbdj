@@ -9,6 +9,15 @@ import com.retech.qc.utils.ActionResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+
+ *@description
+
+ *@author qinc
+
+ *@date 2018/12/11
+
+ */
 @Service
 public class DicsServiceImpl implements DicsService {
 	

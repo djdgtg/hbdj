@@ -2,10 +2,17 @@ package com.retech.qc.mapper;
 
 import com.retech.qc.entity.BaseDics;
 import com.retech.qc.entity.BaseDicsExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
+/**
+ * @author qinc
+ * @description
+ * @date 2018/12/11
+ */
 public interface BaseDicsMapper {
+
     int countByExample(BaseDicsExample example);
 
     int deleteByExample(BaseDicsExample example);

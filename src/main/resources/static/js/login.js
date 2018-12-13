@@ -64,6 +64,7 @@ function login() {
         data: $('#loginForm').serialize(),
         success: function (result) {
         	if (result.status == 200) {
+                //window.location.href = 'main';
                 window.location.href = 'main';
 	    	} else {
 	    		bootbox.alert(result.msg);

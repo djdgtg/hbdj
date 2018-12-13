@@ -91,6 +91,12 @@
                 相当于compile，但是打包阶段做了exclude操作-->
             <scope>provided</scope>
         </dependency>
+        <!--热部署-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
 
     </dependencies>
 
@@ -99,6 +105,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>     <!--fork :  如果没有该项配置，肯呢个devtools不会起作用，即应用不会restart -->
+                </configuration>
             </plugin>
             <!-- mybatis generator 自动生成代码插件 -->
             <plugin>

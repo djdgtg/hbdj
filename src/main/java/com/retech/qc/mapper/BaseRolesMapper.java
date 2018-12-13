@@ -5,6 +5,15 @@ import com.retech.qc.entity.BaseRolesExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
+/**
+
+ *@description
+ 
+ *@author qinc
+
+ *@date 2018/12/11
+
+ */
 public interface BaseRolesMapper {
     int countByExample(BaseRolesExample example);
 

@@ -4,6 +4,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+/**
+
+ *@description
+
+ *@author qinc
+
+ *@date 2018/12/11
+
+ */
 public class BaseLogsExample {
     protected String orderByClause;
 

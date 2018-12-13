@@ -2,19 +2,24 @@ package com.retech.qc.entity.custom;
 
 import com.retech.qc.entity.DbMoulds;
 
-public class MouldsCustomBean extends DbMoulds {
-	private String mouldtypename;
 
-	/**
-	 * @return the mouldtypename
-	 */
+/**
+
+ *@description
+ 
+ *@author qinc
+
+ *@date 2018/12/11
+
+ */
+public class MouldsCustomBean extends DbMoulds {
+	
+	private String mouldtypename;
+	
 	public String getMouldtypename() {
 		return mouldtypename;
 	}
 
-	/**
-	 * @param mouldtypename the mouldtypename to set
-	 */
 	public void setMouldtypename(String mouldtypename) {
 		this.mouldtypename = mouldtypename;
 	}

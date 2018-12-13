@@ -5,37 +5,31 @@ import com.retech.qc.entity.BaseMenus;
 import java.util.List;
 
 
+/**
+ * @author qinc
+ * @description
+ * @date 2018/12/11
+ */
 public class MenusCustomBean extends BaseMenus {
-	private List<MenusCustomBean> children;
-	
-	private String parentmenuname;
-	
 
-	/**
-	 * @return the children
-	 */
-	public List<MenusCustomBean> getChildren() {
-		return children;
-	}
+    private List<MenusCustomBean> children;
 
-	/**
-	 * @param children the children to set
-	 */
-	public void setChildren(List<MenusCustomBean> children) {
-		this.children = children;
-	}
+    private String parentmenuname;
 
-	/**
-	 * @return the parentmenuname
-	 */
-	public String getParentmenuname() {
-		return parentmenuname;
-	}
 
-	/**
-	 * @param parentmenuname the parentmenuname to set
-	 */
-	public void setParentmenuname(String parentmenuname) {
-		this.parentmenuname = parentmenuname;
-	}
+    public List<MenusCustomBean> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<MenusCustomBean> children) {
+        this.children = children;
+    }
+
+    public String getParentmenuname() {
+        return parentmenuname;
+    }
+
+    public void setParentmenuname(String parentmenuname) {
+        this.parentmenuname = parentmenuname;
+    }
 }

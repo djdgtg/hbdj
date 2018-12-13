@@ -19,6 +19,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+
+ *@description
+ 
+ *@author qinc
+
+ *@date 2018/12/11
+
+ */
 @Service
 public class RoleMenuServiceImpl implements RoleMenuService {
 
@@ -62,7 +71,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
 			checkeds.add(baseRolemenu.getMenuid());
 		}
 		List<BaseMenus> list = menusMapper.selectByExample(new BaseMenusExample());
-		List<Node> root = new ArrayList<Node>();// 把所有资源转换成树模型的节点集合，此容器用于保存所有节点
+		List<Node> root = new ArrayList<>();// 把所有资源转换成树模型的节点集合，此容器用于保存所有节点
 		for (BaseMenus baseMenus : list) {
 			if (baseMenus.getParentmenuid() == 0) {
 				Node node = new Node();

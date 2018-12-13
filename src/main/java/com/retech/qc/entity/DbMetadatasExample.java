@@ -3,6 +3,16 @@ package com.retech.qc.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+
+ *@description
+ 
+ *@author qinc
+
+ *@date 2018/12/11
+
+ */
 public class DbMetadatasExample {
     protected String orderByClause;
 

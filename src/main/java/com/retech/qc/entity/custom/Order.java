@@ -1,8 +1,14 @@
 package com.retech.qc.entity.custom;
 
+/**
+ * @author qinc
+ * @description
+ * @date 2018/12/11
+ */
 public class Order {
 
     private String column = null;
+
     private String dir = null;
 
     public String getColumn() {

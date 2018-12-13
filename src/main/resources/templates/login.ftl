@@ -1,68 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="fullscreen-bg">
 <head>
+    <title>Login</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>知识服务平台管理</title>
-    <!--Open Sans Font [ OPTIONAL ]-->
-    <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'> -->
-
-    <!--Bootstrap Stylesheet [ REQUIRED ]-->
-    <link href="static/css/bootstrap.min.css" rel="stylesheet">
-	<link href="static/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet">
-    <!--Nifty Stylesheet [ REQUIRED ]-->
-    <link href="static/css/nifty.min.css" rel="stylesheet">
-
-    <!--Nifty Premium Icon [ DEMONSTRATION ]-->
-    <link href="static/css/demo/nifty-demo-icons.min.css" rel="stylesheet">
-    <!--Demo [ DEMONSTRATION ]-->
-    <link href="static/css/demo/nifty-demo.min.css" rel="stylesheet">
-    <!--Magic Checkbox [ OPTIONAL ]-->
-    <link href="static/plugins/magic-check/css/magic-check.min.css" rel="stylesheet">
-    
-    <!--JAVASCRIPT-->
-    <!--Pace - Page Load Progress Par [OPTIONAL]-->
-    <link href="static/plugins/pace/pace.min.css" rel="stylesheet">
-    <script src="static/plugins/pace/pace.min.js"></script>
-
-    <!--jQuery [ REQUIRED ]-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- plugins CSS -->
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/plugins/font-awesome/css/font-awesome.min.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="static/css/main.css">
+    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+    <link rel="stylesheet" href="static/css/demo.css">
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" href="static/img/logo.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="static/img/logo.png">
+    <link href="static/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet"/>
     <script src="static/js/jquery-2.2.4.min.js"></script>
-
-    <!--BootstrapJS [ RECOMMENDED ]-->
-    <script src="static/js/bootstrap.min.js"></script>
-<script src="static/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
-    <!--NiftyJS [ RECOMMENDED ]-->
-    <script src="static/js/nifty.min.js"></script>
-<script src="static/plugins/bootbox/bootbox.min.js"></script>
-
-    <!--Background Image [ DEMONSTRATION ]-->
-    <script src="static/js/demo/bg-images.js"></script>
+    <script src="static/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="static/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
+    <script src="static/plugins/bootbox/bootbox.min.js"></script>
     <script src="static/js/login.js"></script>
 </head>
-<body>
-	<div id="container" class="cls-container">
-		<div id="bg-overlay"></div>
-		
-		<!-- LOGIN FORM -->
-		<div class="cls-content">
-		    <div class="cls-content-sm panel">
-		        <div class="panel-body">
-		            <div class="mar-ver pad-btm">
-		                <h3 class="h4 mar-no">知识服务平台管理</h3>
-		            </div>
-		            <form id="loginForm">
-		                <div class="form-group">
-		                    <input type="text" name="username" value="admin" class="form-control" placeholder="用户名" autofocus>
-		                </div>
-		                <div class="form-group">
-		                    <input type="password" name="passwd" vaule = "111111" class="form-control" placeholder="...">
-		                </div>
-		                <button class="btn btn-primary btn-lg btn-block">登录</button>
-		            </form>
-		        </div>
-		    </div>
-		</div>
-	</div>
 
+<body>
+<!-- WRAPPER -->
+<div id="wrapper">
+    <div class="vertical-align-wrap">
+        <div class="vertical-align-middle">
+            <div class="auth-box ">
+                <div class="left">
+                    <div class="content">
+                        <div class="header">
+                            <div class="logo text-center"><p class="lead">
+                                <div style="font-weight:bold;font-size: 16px;">党员知家管理平台</div>
+                            </div>
+                            <p class="lead">Login to your account</p>
+                        </div>
+                        <form class="form-auth-small" id="loginForm">
+                            <div class="form-group">
+                                <label for="username" class="control-label sr-only">Username</label>
+                                <input type="text" class="form-control" id="username" name="username"
+                                       placeholder="username">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="control-label sr-only">Password</label>
+                                <input type="password" class="form-control" id="password" name="passwd"
+                                       placeholder="password">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END WRAPPER -->
 </body>
+
 </html>

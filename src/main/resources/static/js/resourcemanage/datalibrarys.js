@@ -70,16 +70,8 @@ function loadDbLibrays(){
     	method: "post",  //使用post请求到服务器获取数据  
     	contentType : "application/x-www-form-urlencoded",
         url: "../datalibrarys/listCustom", //获取数据的Servlet地址  
-        queryParams: function (params) {
-        	var mouldSel = $("#mouldSel").val();
-        	var statusSel = $("#statusSel").val();
-        	var dbNameSel = $("#dbNameSel").val();
-        	var inputText = $("#nameForSearch").val();
-        	if(dbNameSel == "dbname"){
-        		return {'mouldId':mouldSel,'status':statusSel,'databaseName':inputText};
-        	}else if(dbNameSel == "dbcname"){
-        		return {'mouldId':mouldSel,'status':statusSel,'databaseCName':inputText};
-        	}        	
+        queryParams: function () {
+            return $("#searchForm").serializeArray()
 		},
         striped: true,  //表格显示条纹  
         pagination: true, //启动分页  
@@ -627,34 +619,40 @@ function setNexus(){
 /**
  * 启用、禁用
  */
-function lockUnlock(){
+function lockUnlock(type){
 	var selDataLibrary = $("#datalibraryTb").bootstrapTable('getSelections');
-	if(selDataLibrary.length != 1){
-		bootbox.alert('请选择一个资源库', function(){
+	if(selDataLibrary.length < 1){
+		bootbox.alert('请至少选择一个资源库', function(){
             return;
         });
 		return;
 	}else{
-		var status = selDataLibrary[0].status;  
-		var statusMo;
-		if(status == 1){
-			statusMo = -2;
-		}else{
-			statusMo = 1;
-		}
-	    var dbId = selDataLibrary[0].databaseid;
-	    $.ajax({
-    		type: "POST",
-    		url: "../datalibrarys/updateStatus",
-    		data: {'databaseid': dbId,'status':statusMo},
-    	    success: function(data) {
-    	    	if (data.status == 200) {
-    	    		//重新加载表格数据
-    	    		$("#datalibraryTb").bootstrapTable("refresh");
-    	    	} else {
-    	    		bootbox.alert(data.msg);
-    	    	}
-    		}
-    	});
-	}
+        var dbId = "";
+        var isfrist = false;
+        for (var i = 0; i < selDataLibrary.length; i++) {
+            if (isfrist) {
+                dbId += ",";
+            }
+            dbId += selDataLibrary[i].databaseid;
+            isfrist = true;
+        }
+        bootbox.confirm("确认操作?",function(result) {
+            if (result) {
+                $.ajax({
+                    type: "POST",
+                    url: "../datalibrarys/updateStatus",
+                    data: {'databaseid': dbId,'status':type},
+                    success: function(data) {
+                        if (data.status == 200) {
+                            bootbox.alert(data.msg);
+                            //重新加载表格数据
+                            $("#datalibraryTb").bootstrapTable("refresh");
+                        } else {
+                            bootbox.alert(data.msg);
+                        }
+                    }
+                });
+            }
+        });
+    }
 }

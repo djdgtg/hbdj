@@ -1,5 +1,16 @@
 package com.retech.qc.entity;
 
+
+/**
+
+ *@description
+ 
+ *@author qinc
+
+ *@date 2018/12/11
+
+ */
+
 public class DbMetadatas {
     private Integer metadataid;
 

@@ -7,20 +7,24 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+
 /**
- * MD5工具类
+ * @author qinc
+ * @description
+ * @date 2018/12/11
  */
 public class MD5Util {
-	
-	/**
+
+    /**
      * 默认的密码字符串组合，用来将字节转换成 16 进制表示的字符,apache校验下载的文件的正确性用的就是默认的这个组合
      */
-    protected static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6',
-            '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
-    
+    protected static char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6',
+            '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+
     private static String _skye = "1234567890";
 
     protected static MessageDigest messagedigest = null;
+
     static {
         try {
             messagedigest = MessageDigest.getInstance("MD5");
@@ -43,18 +47,19 @@ public class MD5Util {
 
     /**
      * md5加密
+     *
      * @param deStr
      * @return
      */
-    public static String MD5ToDepth(String deStr){
-    	String str = _skye + deStr + _skye;
-    	return getMD5String(str.getBytes());
+    public static String MD5ToDepth(String deStr) {
+        String str = _skye + deStr + _skye;
+        return getMD5String(str.getBytes());
     }
-    
+
     /**
      * 判断字符串的md5校验码是否与一个已知的md5码相匹配
      *
-     * @param password 要校验的字符串
+     * @param password  要校验的字符串
      * @param md5PwdStr 已知的md5校验码
      * @return
      */
@@ -107,8 +112,8 @@ public class MD5Util {
         stringbuffer.append(c1);
     }
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         System.out.println(getMD5String("12345678"));
-	}
+    }
 
 }

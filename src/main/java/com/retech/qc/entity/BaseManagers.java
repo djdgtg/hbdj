@@ -2,6 +2,16 @@ package com.retech.qc.entity;
 
 import java.util.Date;
 
+
+/**
+
+ *@description
+
+ *@author qinc
+
+ *@date 2018/12/11
+
+ */
 public class BaseManagers {
     private Integer userid;
 

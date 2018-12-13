@@ -18,6 +18,15 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+/**
+
+ *@description
+ 
+ *@author qinc
+
+ *@date 2018/12/11
+
+ */
 @Service
 public class LibrarynexusServiceImpl implements LibrarynexusService {
 	

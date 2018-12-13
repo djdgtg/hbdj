@@ -16,6 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+
+ *@description
+ 
+ *@author qinc
+
+ *@date 2018/12/11
+
+ */
 @Service
 public class MenusServiceImpl implements MenusService {
 	
@@ -40,7 +49,7 @@ public class MenusServiceImpl implements MenusService {
 		String htmlmenu="<ul id='mainnav-menu' class='list-group'><li class='list-header'>导航菜单</li>";
 		for (int i = 0; i < usermenu.size(); i++) {
 			if(usermenu.get(i).getChildren()==null){
-				htmlmenu+="<li><a href=#><i></i><span class=menu-title><strong>" + usermenu.get(i).getMenuname() + "</strong></span></a></li>";
+				htmlmenu+="<li><a href=#><i></i><span class='menu-title'><strong>" + usermenu.get(i).getMenuname() + "</strong></span></a></li>";
 			}else{
 				//递归获取子菜单树的html
 				htmlmenu+=getmenus(usermenu.get(i));
@@ -75,7 +84,7 @@ public class MenusServiceImpl implements MenusService {
 	}
 	
 	private List<MenusCustomBean> getChild(Integer menuid, List<MenusCustomBean> menuList) {
-		List<MenusCustomBean> childs = new ArrayList<MenusCustomBean>();
+		List<MenusCustomBean> childs = new ArrayList<>();
 		for (MenusCustomBean menusCustomBean : menuList) {
 			if(menusCustomBean.getParentmenuid()!=null){
 				if(menusCustomBean.getParentmenuid().equals(menuid)){
@@ -97,7 +106,7 @@ public class MenusServiceImpl implements MenusService {
 	public ActionResult listCustom() {
 		BaseMenusExample example=new BaseMenusExample();
 		List<MenusCustomBean> list = menusCustomMapper.selectByExample(example);
-		List<MenusCustomBean> menusList=new ArrayList<MenusCustomBean>();
+		List<MenusCustomBean> menusList=new ArrayList<>();
 		if(list!=null&&list.size()>0){
 			menusList = iterateMenusTree(list,0);
 		}
@@ -139,8 +148,8 @@ public class MenusServiceImpl implements MenusService {
 
 	public ActionResult treeList() {
 		List<MenusCustomBean> menuList = this.menusCustomMapper.selectByExample(new BaseMenusExample());
-		List<TreeBean> parentList = new ArrayList<TreeBean>();
-		List<TreeBean> childList = new ArrayList<TreeBean>();
+		List<TreeBean> parentList = new ArrayList<>();
+		List<TreeBean> childList = new ArrayList<>();
 		
 		for (MenusCustomBean baseMenus : menuList) {
 			TreeBean treeBean = new TreeBean();
@@ -153,14 +162,7 @@ public class MenusServiceImpl implements MenusService {
 				childList.add(treeBean);
 			}
 		}
-        for (TreeBean menuVo : parentList) {  
-             //这里需要的是一级菜单的id，对于没有父菜单id的就是一级菜单  
-        	 List<TreeBean> iterateMenus = TreeBean.iterateMenus(childList, menuVo.getId());  
-             if(iterateMenus != null && iterateMenus.size() > 0){
-                 menuVo.setNodes(iterateMenus); 
-                 menuVo.setChildren(iterateMenus);  
-             }
-         }  
+       	TreeBean.iteraterMenus(parentList,childList);
 		return ActionResult.ok(parentList);
 	}
 

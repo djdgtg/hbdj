@@ -1,19 +1,22 @@
 package com.retech.qc.utils;
 
-import java.io.Serializable;
-import java.util.List;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ActionResult implements Serializable{
+import java.io.Serializable;
+import java.util.List;
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = -6614400429699484429L;
 
-	// 定义jackson对象
+/**
+ * @author qinc
+ * @description
+ * @date 2018/12/11
+ */
+public class ActionResult implements Serializable {
+
+    private static final long serialVersionUID = -6614400429699484429L;
+
+    // 定义jackson对象
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     // 响应业务状态
@@ -57,9 +60,6 @@ public class ActionResult implements Serializable{
         this.data = data;
     }
 
-//    public Boolean isOK() {
-//        return this.status == 200;
-//    }
 
     public Integer getStatus() {
         return status;
@@ -87,9 +87,9 @@ public class ActionResult implements Serializable{
 
     /**
      * 将json结果集转化为TaotaoResult对象
-     * 
+     *
      * @param jsonData json数据
-     * @param clazz TaotaoResult中的object类型
+     * @param clazz    TaotaoResult中的object类型
      * @return
      */
     public static ActionResult formatToPojo(String jsonData, Class<?> clazz) {
@@ -115,7 +115,7 @@ public class ActionResult implements Serializable{
 
     /**
      * 没有object对象的转化
-     * 
+     *
      * @param json
      * @return
      */
@@ -130,9 +130,9 @@ public class ActionResult implements Serializable{
 
     /**
      * Object是集合转化
-     * 
+     *
      * @param jsonData json数据
-     * @param clazz 集合中的类型
+     * @param clazz    集合中的类型
      * @return
      */
     public static ActionResult formatToList(String jsonData, Class<?> clazz) {

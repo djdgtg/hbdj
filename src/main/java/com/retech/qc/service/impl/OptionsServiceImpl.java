@@ -15,6 +15,15 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+
+ *@description
+ 
+ *@author qinc
+
+ *@date 2018/12/11
+
+ */
 @Service
 public class OptionsServiceImpl implements OptionsService {
 
@@ -51,7 +60,7 @@ public class OptionsServiceImpl implements OptionsService {
 					mgRoleExample.createCriteria().andUseridEqualTo(userid);
 					List<BaseMgrole> mgrolelist = baseMgroleMapper.selectByExample(mgRoleExample);
 					if (mgrolelist != null && mgrolelist.size() > 0) {
-						rolearr = new ArrayList<Integer>(mgrolelist.size());
+						rolearr = new ArrayList<>(mgrolelist.size());
 						int i = 0;
 						for (BaseMgrole mgrole : mgrolelist) {
 							rolearr.add(i, mgrole.getRoleid());
@@ -97,7 +106,7 @@ public class OptionsServiceImpl implements OptionsService {
 
 	@Override
 	public ActionResult getClassTreeOptionsByParent(OptionsSearchBean optionsSearchBean) {
-		List<Options> clsTreeList = new ArrayList<Options>();
+		List<Options> clsTreeList = new ArrayList<>();
 		int parentId = optionsSearchBean.getParentId();
 		if (parentId < 0){
         	parentId = 0;
@@ -118,7 +127,7 @@ public class OptionsServiceImpl implements OptionsService {
 	}
 
 	private List<Options> setClsChildren(int parentId, List<BaseClasses> list) {
-		List<Options> clsChildren = new ArrayList<Options>();
+		List<Options> clsChildren = new ArrayList<>();
 		for (BaseClasses cls : list) {
 			Integer clsid = cls.getClassid();// 获取分类的id
 			Integer parentid = cls.getParentclassid();// 获取分类的父id

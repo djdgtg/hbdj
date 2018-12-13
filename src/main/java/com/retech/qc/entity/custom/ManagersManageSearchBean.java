@@ -1,157 +1,101 @@
 package com.retech.qc.entity.custom;
 
+
 /**
- * 查询bean
+ * @author qinc
+ * @description
+ * @date 2018/12/11
  */
-public class ManagersManageSearchBean{
-/*
-public class ManagersManageSearchBean extends QueryExtendBean {
-*/
+public class ManagersManageSearchBean {
 
-	/**
-	 * userId
-	 */
-	private Integer userId;
-	/**
-	 * userName
-	 */
-	private String userName;
-	/**
-	 * status
-	 */
-	private String status;
+    private Integer userId;
 
-	private String managerIds;
+    private String userName;
 
-	private String password;
+    private String status;
 
-	private String realName;
+    private String managerIds;
 
-	private String oldPswd;
+    private String password;
 
-	private Integer roleid;
+    private String realName;
 
-	private String phone;
+    private String oldPswd;
 
-	public Integer getRoleid() {
-		return roleid;
-	}
+    private Integer roleid;
 
-	public void setRoleid(Integer roleid) {
-		this.roleid = roleid;
-	}
+    private String phone;
 
-	public String getPhone() {
-		return phone;
-	}
+    public Integer getRoleid() {
+        return roleid;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public void setRoleid(Integer roleid) {
+        this.roleid = roleid;
+    }
 
-	/**
-	 * @return the userId
-	 */
-	public Integer getUserId() {
-		return userId;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	/**
-	 * @param userId
-	 *            the userId to set
-	 */
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	/**
-	 * @return the userName
-	 */
-	public String getUserName() {
-		return userName;
-	}
+    public Integer getUserId() {
+        return userId;
+    }
 
-	/**
-	 * @param userName
-	 *            the userName to set
-	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
-	/**
-	 * @return the status
-	 */
-	public String getStatus() {
-		return status;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	/**
-	 * @param status
-	 *            the status to set
-	 */
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	/**
-	 * @return the managerIds
-	 */
-	public String getManagerIds() {
-		return managerIds;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	/**
-	 * @param managerIds
-	 *            the managerIds to set
-	 */
-	public void setManagerIds(String managerIds) {
-		this.managerIds = managerIds;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
+    public String getManagerIds() {
+        return managerIds;
+    }
 
-	/**
-	 * @param password
-	 *            the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setManagerIds(String managerIds) {
+        this.managerIds = managerIds;
+    }
 
-	/**
-	 * @return the realName
-	 */
-	public String getRealName() {
-		return realName;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	/**
-	 * @param realName
-	 *            the realName to set
-	 */
-	public void setRealName(String realName) {
-		this.realName = realName;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	/**
-	 * @return the oldPswd
-	 */
-	public String getOldPswd() {
-		return oldPswd;
-	}
+    public String getRealName() {
+        return realName;
+    }
 
-	/**
-	 * @param oldPswd
-	 *            the oldPswd to set
-	 */
-	public void setOldPswd(String oldPswd) {
-		this.oldPswd = oldPswd;
-	}
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getOldPswd() {
+        return oldPswd;
+    }
+
+    public void setOldPswd(String oldPswd) {
+        this.oldPswd = oldPswd;
+    }
 
 }

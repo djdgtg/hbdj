@@ -8,26 +8,32 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
+/**
+ * @author qinc
+ * @description
+ * @date 2018/12/11
+ */
 @Controller
 @RequestMapping("/options")
 public class OptionsController {
-	
-	@Autowired
-	private OptionsService optionsService;
-	
-	@RequestMapping("/getMenuTreeOptionsByRole")
-	@ResponseBody
-	public ActionResult getMenuTreeOptionsByRole(OptionsSearchBean optionsSearchBean) {
-		ActionResult result=optionsService.getMenuTreeOptionsByRole(optionsSearchBean);
-		return result;
-	}
-	
-	@RequestMapping("/getClassTreeOptionsByParent")
-	@ResponseBody
-	public ActionResult getClassTreeOptionsByParent(OptionsSearchBean optionsSearchBean) {
-		ActionResult result=optionsService.getClassTreeOptionsByParent(optionsSearchBean);
-		return result;
-	}
+
+    @Autowired
+    private OptionsService optionsService;
+
+    @RequestMapping("/getMenuTreeOptionsByRole")
+    @ResponseBody
+    public ActionResult getMenuTreeOptionsByRole(OptionsSearchBean optionsSearchBean) {
+        ActionResult result = optionsService.getMenuTreeOptionsByRole(optionsSearchBean);
+        return result;
+    }
+
+    @RequestMapping("/getClassTreeOptionsByParent")
+    @ResponseBody
+    public ActionResult getClassTreeOptionsByParent(OptionsSearchBean optionsSearchBean) {
+        ActionResult result = optionsService.getClassTreeOptionsByParent(optionsSearchBean);
+        return result;
+    }
 
 }
 

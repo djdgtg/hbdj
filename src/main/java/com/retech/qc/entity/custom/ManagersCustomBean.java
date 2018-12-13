@@ -4,51 +4,61 @@ import com.retech.qc.entity.BaseManagers;
 
 import java.util.List;
 
+/**
+ * @author qinc
+ * @description
+ * @date 2018/12/11
+ */
 public class ManagersCustomBean extends BaseManagers {
-	private List<Integer> roleIds;
-	private String roleIdsStr;
-	private List<Integer> ids;
-	private Integer roleid;
-	private String rolename;
 
-	public List<Integer> getRoleIds() {
-		return roleIds;
-	}
+    private List<Integer> roleIds;
 
-	public void setRoleIds(List<Integer> roleIds) {
-		this.roleIds = roleIds;
-	}
+    private String roleIdsStr;
 
-	public String getRoleIdsStr() {
-		return roleIdsStr;
-	}
+    private List<Integer> ids;
 
-	public void setRoleIdsStr(String roleIdsStr) {
-		this.roleIdsStr = roleIdsStr;
-	}
+    private Integer roleid;
 
-	public List<Integer> getIds() {
-		return ids;
-	}
+    private String rolename;
 
-	public void setIds(List<Integer> ids) {
-		this.ids = ids;
-	}
+    public List<Integer> getRoleIds() {
+        return roleIds;
+    }
 
-	public Integer getRoleid() {
-		return roleid;
-	}
+    public void setRoleIds(List<Integer> roleIds) {
+        this.roleIds = roleIds;
+    }
 
-	public void setRoleid(Integer roleid) {
-		this.roleid = roleid;
-	}
+    public String getRoleIdsStr() {
+        return roleIdsStr;
+    }
 
-	public String getRolename() {
-		return rolename;
-	}
+    public void setRoleIdsStr(String roleIdsStr) {
+        this.roleIdsStr = roleIdsStr;
+    }
 
-	public void setRolename(String rolename) {
-		this.rolename = rolename;
-	}
+    public List<Integer> getIds() {
+        return ids;
+    }
+
+    public void setIds(List<Integer> ids) {
+        this.ids = ids;
+    }
+
+    public Integer getRoleid() {
+        return roleid;
+    }
+
+    public void setRoleid(Integer roleid) {
+        this.roleid = roleid;
+    }
+
+    public String getRolename() {
+        return rolename;
+    }
+
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
+    }
 
 }

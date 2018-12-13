@@ -17,6 +17,15 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+
+ *@description
+ 
+ *@author qinc
+
+ *@date 2018/12/11
+
+ */
 @Service
 public class ManageServiceImpl implements ManagerService {
 	
@@ -89,11 +98,11 @@ public class ManageServiceImpl implements ManagerService {
 	}
 
 	public int insert(int userid, List<String> roleList) {
-		List<String> roleIdList = new ArrayList<String>();
+		List<String> roleIdList = new ArrayList<>();
 		roleIdList.add(String.valueOf(userid));
 		mgRoleCustomMapper.deleteBatchByMgId(roleIdList);
 		if(roleList != null){
-			List<BaseMgrole> mgRoleList = new ArrayList<BaseMgrole>();
+			List<BaseMgrole> mgRoleList = new ArrayList<>();
 			for (String roleid : roleList) {
 				BaseMgrole mgRole = new BaseMgrole();
 				mgRole.setRoleid(Integer.valueOf(roleid.trim()));

@@ -17,6 +17,15 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
+/**
+
+ *@description
+
+ *@author qinc
+
+ *@date 2018/12/11
+
+ */
 @Service
 public class DatalibrarysServiceImpl implements DatalibrarysService {
 
@@ -105,17 +114,7 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 
 			List<DbLibrarynexus> nexusList = customBean.getLibraryNexus();
 			if (nexusList != null) {
-				for (DbLibrarynexus DbLibrarynexus : nexusList) {
-					DbLibrarynexus.setMdbname(customBean.getDatabasename());
-					StringBuffer sql = new StringBuffer();
-					sql.append("select ").append(DbLibrarynexus.getSdbvaluefield()).append(",")
-							.append(DbLibrarynexus.getSdbnamefield()).append(" from ")
-							.append(DbLibrarynexus.getSdbname()).append(" order by ")
-							.append(DbLibrarynexus.getSdbvaluefield()).append(" asc");
-					DbLibrarynexus.setSdbsql(sql.toString());
-					// 插入资源库关系数据
-					librarynexusMapper.insertSelective(DbLibrarynexus);
-				}
+				insertNexusList(customBean,nexusList);
 			}
 			List<String> columnList = datalibrarysCustomMapper.showColumns(customBean.getDatabasename());
 			if (columnList != null) {
@@ -142,6 +141,20 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 		return ActionResult.ok();
 	}
 
+	public void insertNexusList(DatalibrarysCustomBean customBean,List<DbLibrarynexus> nexusList){
+		for (DbLibrarynexus DbLibrarynexus : nexusList) {
+			DbLibrarynexus.setMdbname(customBean.getDatabasename());
+			StringBuffer sql = new StringBuffer();
+			sql.append("select ").append(DbLibrarynexus.getSdbvaluefield()).append(",")
+					.append(DbLibrarynexus.getSdbnamefield()).append(" from ")
+					.append(DbLibrarynexus.getSdbname()).append(" order by ")
+					.append(DbLibrarynexus.getSdbvaluefield()).append(" asc");
+			DbLibrarynexus.setSdbsql(sql.toString());
+			// 插入资源库关系数据
+			datalibrarysMapper.insertSelective(customBean);
+		}
+	}
+
 	public ActionResult add(DatalibrarysCustomBean customBean) {
 		List<MetadatasCustomBean> metaList = metadatasCustomMapper.selectByExample(customBean.getMouldid().toString());
 		// 插入资源库数据
@@ -149,17 +162,7 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 		if (res > 0) {
 			List<DbLibrarynexus> nexusList = customBean.getLibraryNexus();
 			if (nexusList != null) {
-				for (DbLibrarynexus DbLibrarynexus : nexusList) {
-					DbLibrarynexus.setMdbname(customBean.getDatabasename());
-					StringBuffer sql = new StringBuffer();
-					sql.append("select ").append(DbLibrarynexus.getSdbvaluefield()).append(",")
-							.append(DbLibrarynexus.getSdbnamefield()).append(" from ")
-							.append(DbLibrarynexus.getSdbname()).append(" order by ")
-							.append(DbLibrarynexus.getSdbvaluefield()).append(" asc");
-					DbLibrarynexus.setSdbsql(sql.toString());
-					// 插入资源库关系数据
-					datalibrarysMapper.insertSelective(customBean);
-				}
+				insertNexusList(customBean,nexusList);
 			}
 			// 查询模型类型
 			DbMoulds mould = mouldsMapper.selectByPrimaryKey(customBean.getMouldid());
@@ -241,12 +244,14 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 	        return sqlCreate.toString();
 	}
 
-	public ActionResult updateStatus(DbDatalibrarys datalibrarys) {
-		int count = datalibrarysMapper.updateByPrimaryKeySelective(datalibrarys);
-		if (count > 0) {
-			return ActionResult.ok();
+	public ActionResult updateStatus(String databaseid,String status) {
+		String[] ids = databaseid.split(",");
+		for (String id:ids) {
+			DbDatalibrarys dbDatalibrarys = datalibrarysMapper.selectByPrimaryKey(Integer.valueOf(id));
+			dbDatalibrarys.setStatus(Integer.valueOf(status));
+			datalibrarysMapper.updateByPrimaryKey(dbDatalibrarys);
 		}
-		return ActionResult.build(400, "操作失败！");
+		return ActionResult.ok();
 	}
 
 	public ActionResult getSelfDataList(DataLibrarysManageSearchBean dataLibrarysManageSearchBean,
@@ -267,11 +272,10 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 			// 获取资源库元数据
 			List<MetadatasCustomBean> metaList = metadatasCustomMapper.selectByExample(db.getMouldid().toString());
 			if (metaList == null) {
-				metaList = new ArrayList<MetadatasCustomBean>();
+				metaList = new ArrayList<>();
 			}
 			List<MetadatasCustomBean> sysMetaList = Constants.initSysMetaList();
-			for (int i = 0; i < sysMetaList.size(); i++) {
-				MetadatasCustomBean meta = sysMetaList.get(i);
+			for (MetadatasCustomBean meta: sysMetaList) {
 				if (meta.getMetaType().equals("sys")) {
 					metaList.add(meta);
 				}
@@ -282,7 +286,6 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 					metaList.add(meta);
 				}
 			}
-
 			StringBuffer whereSql = new StringBuffer(" where 1 = 1 ");
 			if (dataLibrarysManageSearchBean.getUserId() > 0) {
 				whereSql.append(" and creatorid=").append(dataLibrarysManageSearchBean.getUserId());
@@ -518,7 +521,7 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 							nexusExample.createCriteria().andMdbfieldEqualTo(metaCustom.getColumnname())
 									.andMdbnameEqualTo(dataLibrarysManageSearchBean.getDatabaseName());
 							List<DbLibrarynexus> nexusList = librarynexusMapper.selectByExample(nexusExample);
-							List<List<LinkedHashMap<String, Object>>>nexusResList = new ArrayList<List<LinkedHashMap<String, Object>>>();
+							List<List<LinkedHashMap<String, Object>>>nexusResList = new ArrayList<>();
 							if (nexusList != null) {
 								for (DbLibrarynexus dbLibraryNexus : nexusList) {
 									if (dbLibraryNexus != null) {
@@ -530,7 +533,6 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 									}
 								}
 							}
-
 							list.put(metaCustom.getColumnname(), nexusResList);
 							break;
 						}
@@ -622,7 +624,7 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 		if (queryList == null || queryList.size() == 0) {
 			return null;
 		}
-		List<CustomQueryBean> squery = new ArrayList<CustomQueryBean>();
+		List<CustomQueryBean> squery = new ArrayList<>();
 		for (CustomQueryBean customQueryBean : queryList) {
 			if (customQueryBean.getName().equals(name) && !StringUtils.isEmpty(customQueryBean.getNameValue())) {
 				squery.add(customQueryBean);
@@ -668,8 +670,7 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 	}
 
 	@Override
-	public ActionResult addRes(DataLibrarysManageSearchBean searchBean, QueryList queryList,
-			HttpServletRequest request) throws Exception {
+	public ActionResult addRes(DataLibrarysManageSearchBean searchBean, QueryList queryList, HttpServletRequest request) {
 		List<CustomQueryBean> beanlist = queryList.getQueryList();
 		CustomQueryBean user = new CustomQueryBean();
 		user.setName("creatorid");
@@ -693,8 +694,8 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 				}
 			}
 		}
-		String nameSqlStr = nameSql.substring(0, nameSql.length() - 1).toString();
-		String valueSqlStr = valueSql.substring(0, valueSql.length() - 1).toString();
+		String nameSqlStr = nameSql.substring(0, nameSql.length() - 1);
+		String valueSqlStr = valueSql.substring(0, valueSql.length() - 1);
 		String sql = "insert into " + searchBean.getDatabaseName() + " (" + nameSqlStr + ") values(" + valueSqlStr+ ")";
 		int count = datalibrarysCustomMapper.alterTable(sql);
 		if(count>0){
@@ -715,7 +716,7 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 
 	@Override
 	public ActionResult updateRes(DataLibrarysManageSearchBean searchBean, QueryList queryList,
-			HttpServletRequest request) throws Exception {
+			HttpServletRequest request) {
 		StringBuffer nameSql = new StringBuffer(); 
 		List<CustomQueryBean> beanlist = queryList.getQueryList();
 		CustomQueryBean user = new CustomQueryBean();
@@ -733,7 +734,7 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 				}
 			}
 		}
-		String nameSqlStr = nameSql.substring(0, nameSql.length() - 1).toString();
+		String nameSqlStr = nameSql.substring(0, nameSql.length() - 1);
 		String sql = "update " + databaseName + " set " + nameSqlStr + " where seqid=" + searchBean.getSeqId();
 		int count = datalibrarysCustomMapper.alterTable(sql);
 		if(count>0){

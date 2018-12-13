@@ -330,7 +330,14 @@ function dateTimeformtter(row, value) {
 		return date.Format("yyyy-MM-dd hh:mm:ss");
 	}
 }
-
+function textformtter(row, value) {
+    if(row == null||row == ''){
+        return '';
+    }else{
+       	var text = row.replace(/\s+/g,'&nbsp;')
+        return '<span class="colStyle" title="'+text+'">'+row+'</span>';
+    }
+}
 /**
  * 加载表格数据
  * @param mouldId
@@ -367,7 +374,9 @@ function loadTbMsg(mouldId, databasename) {
 										formtter = dateformtter;
 									} else if (el.columntype == 8) {// 文件类型
 										formtter = fileformtter;
-									}
+									} else if (el.columntype == 2) {// 多行
+                                        formtter = textformtter;
+                                    }
 									if(el.editable==1){//允许直接修改列值
 										array.push({
 											field : field,

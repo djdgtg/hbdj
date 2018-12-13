@@ -7,26 +7,31 @@ import com.retech.qc.utils.ActionResult;
 
 import java.util.List;
 
+/**
+ * @author qinc
+ * @description
+ * @date 2018/12/11
+ */
 public interface ManagerService {
 
-	BaseManagers login(BaseManagers baseManagers);
+    BaseManagers login(BaseManagers baseManagers);
 
-	void updatelogintime(BaseManagers baseManagers);
+    void updatelogintime(BaseManagers baseManagers);
 
-	BaseManagers find(Integer id);
+    BaseManagers find(Integer id);
 
-	List<ManagersCustomBean> list(ManagersManageSearchBean managers);
+    List<ManagersCustomBean> list(ManagersManageSearchBean managers);
 
-	boolean checkUniqueness(BaseManagers managers);
-	
-	int add(BaseManagers managers);
+    boolean checkUniqueness(BaseManagers managers);
 
-	int update(BaseManagers managers);
+    int add(BaseManagers managers);
 
-	ActionResult delBatch(String managerIds);
+    int update(BaseManagers managers);
 
-	ActionResult updateBatch(String managerIds, Integer status);
+    ActionResult delBatch(String managerIds);
 
-	int insert(int userid, List<String> roleList);
+    ActionResult updateBatch(String managerIds, Integer status);
+
+    int insert(int userid, List<String> roleList);
 
 }
