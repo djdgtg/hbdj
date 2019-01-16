@@ -2,6 +2,7 @@ package com.retech.qc.config;
 
 
 import com.retech.qc.interceptor.LoginInterceptor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -20,14 +21,20 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class InterceptorConfig extends WebMvcConfigurationSupport {
 
+    @Bean
+    public LoginInterceptor getTokenInterceptor(){
+        return new LoginInterceptor();
+    }
+
     /**
      * 授权拦截的路径 addPathPatterns：拦截的路径 excludePathPatterns：不拦截的路径
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor())
+        registry.addInterceptor(getTokenInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/login", "/tologin", "/static/**");
+                .excludePathPatterns("/login", "/checklogin", "/static/**");
+        super.addInterceptors(registry);
     }
 
     /**

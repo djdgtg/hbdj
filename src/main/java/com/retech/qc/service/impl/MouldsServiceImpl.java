@@ -27,10 +27,6 @@ public class MouldsServiceImpl implements MouldsService {
 	@Autowired
 	private MouldsManageCustomMapper mouldsCustomMapper;
 
-	public ActionResult listCustom() {
-		return ActionResult.ok(mouldsCustomMapper.listCustom());
-	}
-	
 	public ActionResult list() {
 		return ActionResult.ok(mouldsMapper.selectByExample(new DbMouldsExample()));
 	}
@@ -62,7 +58,4 @@ public class MouldsServiceImpl implements MouldsService {
 	public boolean checkUniqueness(DbMoulds dbMoulds) {
 		return mouldsCustomMapper.checkUniqueness(dbMoulds)>0;
 	}
-
-	
-
 }

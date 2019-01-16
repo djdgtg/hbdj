@@ -4,6 +4,7 @@ import com.retech.qc.entity.BaseMenus;
 import com.retech.qc.entity.BaseMenusExample;
 import com.retech.qc.entity.custom.MenusCustomBean;
 import com.retech.qc.entity.custom.TreeBean;
+import com.retech.qc.entity.custom.TreeNode;
 import com.retech.qc.mapper.BaseMenusMapper;
 import com.retech.qc.mapper.custom.MenusManageCustomMapper;
 import com.retech.qc.service.MenusService;
@@ -144,26 +145,6 @@ public class MenusServiceImpl implements MenusService {
 	public ActionResult del(Integer menuId) {
 		baseMenusMapper.deleteByPrimaryKey(menuId);
 		return ActionResult.ok();
-	}
-
-	public ActionResult treeList() {
-		List<MenusCustomBean> menuList = this.menusCustomMapper.selectByExample(new BaseMenusExample());
-		List<TreeBean> parentList = new ArrayList<>();
-		List<TreeBean> childList = new ArrayList<>();
-		
-		for (MenusCustomBean baseMenus : menuList) {
-			TreeBean treeBean = new TreeBean();
-			treeBean.setId(baseMenus.getMenuid());
-			treeBean.setText(baseMenus.getMenuname());
-			treeBean.setParentId(baseMenus.getParentmenuid());
-			if(baseMenus.getParentmenuid() == 0){
-				parentList.add(treeBean);
-			}else{
-				childList.add(treeBean);
-			}
-		}
-       	TreeBean.iteraterMenus(parentList,childList);
-		return ActionResult.ok(parentList);
 	}
 
 }

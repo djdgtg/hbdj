@@ -87,16 +87,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-3 control-label">模型类型：</label>
-                        <div class="col-lg-7">
-                            <select name="mouldtype" id="mouldType" class="selectpicker">
-                                <option value="1">基础库</option>
-                                <option value="2">关联库</option>
-                                <option value="3">综合库</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label class="col-lg-3 control-label">模型描述：</label>
                         <div class="col-lg-7">
                             <input type="text" class="form-control" name="description" id="description">
@@ -254,7 +244,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-3 control-label">是否可列修改：</label>
+                        <label class="col-lg-3 control-label">是否可修改列：</label>
                         <div class="col-lg-7">
                             <input type="radio" class="magic-radio" name="editable" value="0" id="editableNo"><label
                                 for="editableNo">否</label>
@@ -265,10 +255,10 @@
                     <div class="form-group">
                         <label class="col-lg-3 control-label">是否值唯一：</label>
                         <div class="col-lg-7">
-                            <input type="radio" class="magic-radio" name="uniqueness" value="0" id="uniquenessNo"><label
-                                for="uniquenessNo">否</label>
-                            <input type="radio" class="magic-radio" name="uniqueness" value="1"
-                                   id="uniquenessYes"><label for="uniquenessYes">是</label>
+                            <input type="radio" class="magic-radio" name="only" value="0" id="onlyNo"><label
+                                for="onlyNo">否</label>
+                            <input type="radio" class="magic-radio" name="only" value="1"
+                                   id="onlyYes"><label for="onlyYes">是</label>
                         </div>
                     </div>
                     <div class="form-group">

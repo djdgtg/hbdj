@@ -69,7 +69,7 @@ public class DatalibrarysController {
 
     @RequestMapping("/getSelfDataList")
     @ResponseBody
-    public ActionResult getSelfDataList(DataLibrarysManageSearchBean searchBean, QueryList queryList, HttpServletRequest request) {
+    public ActionResult getSelfDataList(DataLibrarysManageSearchBean searchBean, QueryList queryList) {
         return datalibrarysService.getSelfDataList(searchBean, queryList.getQueryList());
     }
 

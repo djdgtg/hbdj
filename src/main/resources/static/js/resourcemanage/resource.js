@@ -64,7 +64,7 @@ function validForm(validFormfields) {
 	}).on('success.form.bv', function(e) {
 		e.preventDefault();
 		var $form = $(e.target);
-		var bv = $form.data('bootstrapValidator');
+		$form.data('bootstrapValidator');
 		insertAndUpdateRes();
 	});
 }
@@ -102,8 +102,6 @@ function loadMetadata(mouldId, databasename) {
 							var clsMap = {};
 							var tabMap = {};
 							var data = data.data;
-							var datepickerids = new Array();
-							var datetimepickerids = new Array();
 							$.each(data,function(index, meta) {
 												htmlMsg += '<input type="hidden" name="queryList['+ index+ '].name" value="'+ meta.columnname+ '" /> ';
 												if (index % 2 == 0) {
@@ -358,10 +356,8 @@ function loadTbMsg(mouldId, databasename) {
 				success : function(data) {
 					if (data.status == 200) {
 						if (data.data.length > 0) {
-							var dicMapTb = {};
-							var clsMapTb = {};
 							$.each(data.data, function(index, el) {
-								var field, formtter,columntype=el.columntype;
+								var field, formtter;
 								if (el.columnname != 'seqid') {
 									if (el.columntype == 3 || el.columntype == 4) {
 										field = el.columnname + "Name";
@@ -443,7 +439,7 @@ function loadTbMsg(mouldId, databasename) {
 										"name" : "order[0].dir",
 										"value" : params.order
 									});
-									var searchResult = initialSearchCondition(searchCondition);
+									initialSearchCondition(searchCondition);
 									return searchCondition;
 								},
 								responseHandler : function(res) {
@@ -455,6 +451,7 @@ function loadTbMsg(mouldId, databasename) {
 								striped : true, // 表格显示条纹
 								locale : 'zh-CN',
 								pagination : true, // 启动分页
+                                paginationShowPageGo: true,
 								pageSize : 10, // 每页显示的记录数
 								pageNumber : 1, // 当前第几页
 								pageList : [ 5, 10, 20, 50, 'ALL' ], // 记录数可选列表
@@ -603,7 +600,6 @@ function loadResForm(mouldId, databasename, seqid) {
 				success : function(result) {
 					if (result.status == 200) {
 						var validFormfields = {};
-						var editors = new Array();
 						var dataMsg = '<input type="hidden" name="seqId" value="'+ seqid + '"/>';
 						dataMsg += '<input type="hidden" name="databaseName" value="'+ databasename + '"/>';
 						dataMsg += '<input type="hidden" name="mouldId" value="'+ mouldId + '"/>';
@@ -627,9 +623,9 @@ function loadResForm(mouldId, databasename, seqid) {
 											}if(row.columnlength!=null&&row.columnlength!=""){
 												validators.stringLength={max: row.columnlength,message: '文字长度'+row.columnlength};
 											}
-											if(row.uniqueness==1){
+											if(row.onlyness==1){
 												validators.remote={
-														url: "../personal/checkunique",
+														url: "../personal/checkonly",
 														message: '该'+row.columncname+'已被使用！',
 														type: 'POST',//请求方式,
 										                data: function(validator) {
@@ -797,7 +793,7 @@ function loadResForm(mouldId, databasename, seqid) {
 												break;
 											case 8:// 文件上传
 												formhtml += '<div class="form-group" id="div_'+row.columnname+'"><label class="col-lg-3 col-md-3 control-label">'+row.columncname+'：</label><div class="col-lg-7 col-md-7">';
-												formhtml += '<input type="text" class="form-control" name="queryList['+ index+ '].nameValue" id="f_'+ row.columnname+ '" value="'+ rowValue+ '" />'
+												formhtml += '<input type="text" class="form-control" name="queryList['+ index+ '].nameValue" id="f_'+ row.columnname+ '" value="'+ rowValue+ '" readonly="readonly"/>'
 												formhtml += '<input type="hidden" name="queryList['+ index+ '].name" value="'+ row.columnname+ '" />';
 												formhtml += '<input id="input_'+row.columnname +'" name="file" multiple type="file" class="file-loading"/></div></div>';
 												$("#resFormDiv").append(formhtml);
@@ -943,7 +939,6 @@ function initFileInput(columnname) {
 	 var fileurls=[];
 	 //上传初始化
 	 var control = $('#input_' + columnname);
-	 var fileurl=$("#val_"+columnname).val();
      control.fileinput({
     	 language: 'zh', //设置语言
          uploadUrl: "../personal/uploadFile", //上传的地址
@@ -1014,43 +1009,6 @@ function resImportModal() {
      });
 }
 
-/**
- * 导出数据
- */
-function resExportModal(type) {
-	downImportAndExportModal(type);
-}
-
-// 校验正整数
-function isPositiveInteger(s) {// 是否为正整数
-	var re = /^[1-9]\d*$/;
-	return re.test(s)
-}
-function resToDbModal(type) {
-	bootbox.alert("功能开发中");
-}
-
-/**
- * 获取当前时间
- * @returns {String}
- */
-function getNowFormatDate() {
-	var date = new Date();
-	var seperator1 = "-";
-	var seperator2 = ":";
-	var month = date.getMonth() + 1;
-	var strDate = date.getDate();
-	if (month >= 1 && month <= 9) {
-		month = "0" + month;
-	}
-	if (strDate >= 0 && strDate <= 9) {
-		strDate = "0" + strDate;
-	}
-	var currentdate = date.getFullYear() + seperator1 + month + seperator1
-			+ strDate;
-	return currentdate;
-}
-
 //资源上架 下架
 function userlock(status) {
 	updatebyfiled("userstatus", status);
@@ -1077,7 +1035,6 @@ function updatebyfiled(fieldname, fieldval) {
 		bootbox.confirm("确认操作?",function(result) {
 							if (result) {
 								var databaseName = $("#dbSelect").val();
-								//var mouldId = getUrlParam("mouldId");// 获取资源库id
 								$.ajax({
 											type : "POST",
 											url : "../personal/updateResByFiledBatch",

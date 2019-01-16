@@ -23,7 +23,7 @@
     from base_menus a left join base_menus b on a.ParentMenuID = b.MenuID 
       order by a.Sort
   </select>
-  
+
   <select id="countByExample" parameterType="com.retech.qc.entity.BaseMenusExample" resultType="java.lang.Integer" >
     select count(*) from base_menus
   </select>
@@ -69,9 +69,9 @@
 	order by m.Sort
   </select>
   
-  <select id="getMenusStringListByUserId" resultType="String" parameterType="java.lang.Integer" >
+  <select id="getMenusStringListByUserId" resultType="String">
 	SELECT
-	substring_index(CONCAT('/qc/', bm.Path), '?',1)
+	substring_index(CONCAT(#{contextPath}, bm.Path), '?',1)
 	FROM
 		base_rolemenu brm
 	LEFT JOIN base_roles br ON br.RoleID = brm.RoleID
@@ -79,12 +79,12 @@
 	LEFT JOIN base_mgrole bmr ON brm.RoleID = bmr.RoleID
 	LEFT JOIN base_managers bmg ON bmg.UserID = bmr.UserID
 	WHERE
-		bmg.UserID = #{userid,jdbcType=INTEGER}
+		bmg.UserID = #{id}
   </select>
   
-  <select id="getMenusStringList" resultType="String">
+  <select id="getMenusStringList" resultType="String" parameterType="String">
 	SELECT
-	substring_index(CONCAT('/qc/', bm.Path), '?',1)
+	substring_index(CONCAT(#{contextPath}, bm.Path), '?',1)
 	FROM
 	base_menus bm
   </select>

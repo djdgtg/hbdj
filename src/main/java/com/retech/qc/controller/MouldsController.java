@@ -21,18 +21,10 @@ public class MouldsController {
     @Autowired
     private MouldsService mouldsService;
 
-    @RequestMapping("/listCustom")
-    @ResponseBody
-    public ActionResult listCustom() {
-        ActionResult result = mouldsService.listCustom();
-        return result;
-    }
-
     @RequestMapping("/list")
     @ResponseBody
     public ActionResult list() {
-        ActionResult result = mouldsService.list();
-        return result;
+        return mouldsService.list();
     }
 
     @RequestMapping("/add")

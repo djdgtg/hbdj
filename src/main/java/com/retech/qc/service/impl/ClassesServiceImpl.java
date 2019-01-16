@@ -43,8 +43,8 @@ public class ClassesServiceImpl implements ClassesService {
 	
 	//多级分类查询方法  
     private List<ClassesCustomBean> iterateClassTree(List<ClassesCustomBean> clsVoList,int pid){  
-        List<ClassesCustomBean> result = new ArrayList<ClassesCustomBean>();  
-        for (ClassesCustomBean clsVo : clsVoList) {  
+        List<ClassesCustomBean> result = new ArrayList<>();
+        for (ClassesCustomBean clsVo : clsVoList) {
             int clsId = clsVo.getClassid();//获取菜单的id  
             int parentId = clsVo.getParentclassid();//获取菜单的父id  
             if(parentId == pid){    
@@ -54,8 +54,8 @@ public class ClassesServiceImpl implements ClassesService {
                 }  
                 result.add(clsVo);
             }  
-        }  
-        return result;  
+        }
+        return result;
     } 
 
 	@Override

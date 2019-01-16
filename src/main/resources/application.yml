@@ -6,6 +6,10 @@ server:
     context-path: /hbdj
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB #如果不限制大小，则设置为-1即可
   #数据源
   datasource:
     name: springboot
@@ -15,6 +19,20 @@ spring:
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      filters: stat
+      maxActive: 20    #连接池的最大值，同一时间可以从池分配的最多连接数量，0时无限制
+      initialSize: 1    #连接初始值，连接池启动时创建的连接数量的初始值
+      maxWait: 60000
+      minIdle: 1   #最小空闲值.当空闲的连接数少于阀值时，连接池就会预申请去一些连接，以免洪峰来时来不及申请
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true   #是否对已备语句进行池管理（布尔值），是否对PreparedStatement进行缓存
+      maxOpenPreparedStatements: 20
   #时间戳统一转换
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

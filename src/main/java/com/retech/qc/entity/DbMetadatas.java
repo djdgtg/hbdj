@@ -1,214 +1,157 @@
 package com.retech.qc.entity;
 
+import java.io.Serializable;
+import lombok.Data;
 
 /**
-
- *@description
- 
- *@author qinc
-
- *@date 2018/12/11
-
+ * Table: db_metadatas
  */
-
-public class DbMetadatas {
+@Data
+public class DbMetadatas implements Serializable {
+    /**
+     * 字段ID
+     * Column:    MetaDataID
+     * Nullable:  false
+     */
     private Integer metadataid;
 
+    /**
+     * 字段英文名
+     * Column:    ColumnName
+     * Nullable:  false
+     */
     private String columnname;
 
+    /**
+     * 字段中文名
+     * Column:    ColumnCName
+     * Nullable:  false
+     */
     private String columncname;
 
+    /**
+     * 字段类型
+     * Column:    ColumnType
+     * Nullable:  false
+     */
     private Integer columntype;
 
+    /**
+     * 字段来源
+     * Column:    ColumnSource
+     * Nullable:  true
+     */
     private Integer columnsource;
 
+    /**
+     * 类型规则
+     * Column:    ColumnTypeRule
+     * Nullable:  true
+     */
     private String columntyperule;
 
+    /**
+     * 数据类型
+     * Column:    DataType
+     * Nullable:  false
+     */
     private String datatype;
 
+    /**
+     * 字段长度
+     * Column:    ColumnLength
+     * Nullable:  true
+     */
     private Integer columnlength;
 
+    /**
+     * 表单显示
+     * Column:    FormShow
+     * Nullable:  false
+     */
     private Integer formshow;
 
+    /**
+     * 列表显示
+     * Column:    GridShow
+     * Nullable:  false
+     */
     private Integer gridshow;
 
+    /**
+     * 排序
+     * Column:    Sorts
+     * Nullable:  false
+     */
     private Integer sorts;
 
+    /**
+     * 模型ID
+     * Column:    MouldID
+     * Nullable:  false
+     */
     private Integer mouldid;
 
+    /**
+     * 默认值
+     * Column:    DefaultValue
+     * Nullable:  true
+     */
     private String defaultvalue;
 
+    /**
+     * 搜索显示
+     * Column:    SearchShow
+     * Nullable:  true
+     */
     private Integer searchshow;
 
+    /**
+     * 导入导出显示
+     * Column:    ImportAndExportShow
+     * Nullable:  true
+     */
     private Integer importandexportshow;
 
+    /**
+     * 是否为必填项
+     * Column:    Required
+     * Nullable:  true
+     */
     private Integer required;
 
+    /**
+     * 是否可修改列值
+     * Column:    Editable
+     * Nullable:  true
+     */
     private Integer editable;
 
-    private Integer uniqueness;
+    /**
+     * Column:    Only
+     * Nullable:  true
+     */
+    private Integer only;
 
+    /**
+     * 校验的正则表达式
+     * Column:    ValidExp
+     * Nullable:  true
+     */
     private String validexp;
 
+    /**
+     * 校验错误的提示信息
+     * Column:    ValidMsg
+     * Nullable:  true
+     */
     private String validmsg;
 
-    public Integer getMetadataid() {
-        return metadataid;
-    }
-
-    public void setMetadataid(Integer metadataid) {
-        this.metadataid = metadataid;
-    }
-
-    public String getColumnname() {
-        return columnname;
-    }
-
-    public void setColumnname(String columnname) {
-        this.columnname = columnname == null ? null : columnname.trim();
-    }
-
-    public String getColumncname() {
-        return columncname;
-    }
-
-    public void setColumncname(String columncname) {
-        this.columncname = columncname == null ? null : columncname.trim();
-    }
-
-    public Integer getColumntype() {
-        return columntype;
-    }
-
-    public void setColumntype(Integer columntype) {
-        this.columntype = columntype;
-    }
-
-    public Integer getColumnsource() {
-        return columnsource;
-    }
-
-    public void setColumnsource(Integer columnsource) {
-        this.columnsource = columnsource;
-    }
-
-    public String getColumntyperule() {
-        return columntyperule;
-    }
-
-    public void setColumntyperule(String columntyperule) {
-        this.columntyperule = columntyperule == null ? null : columntyperule.trim();
-    }
-
-    public String getDatatype() {
-        return datatype;
-    }
-
-    public void setDatatype(String datatype) {
-        this.datatype = datatype == null ? null : datatype.trim();
-    }
-
-    public Integer getColumnlength() {
-        return columnlength;
-    }
-
-    public void setColumnlength(Integer columnlength) {
-        this.columnlength = columnlength;
-    }
-
-    public Integer getFormshow() {
-        return formshow;
-    }
-
-    public void setFormshow(Integer formshow) {
-        this.formshow = formshow;
-    }
-
-    public Integer getGridshow() {
-        return gridshow;
-    }
-
-    public void setGridshow(Integer gridshow) {
-        this.gridshow = gridshow;
-    }
-
-    public Integer getSorts() {
-        return sorts;
-    }
-
-    public void setSorts(Integer sorts) {
-        this.sorts = sorts;
-    }
-
-    public Integer getMouldid() {
-        return mouldid;
-    }
-
-    public void setMouldid(Integer mouldid) {
-        this.mouldid = mouldid;
-    }
-
-    public String getDefaultvalue() {
-        return defaultvalue;
-    }
-
-    public void setDefaultvalue(String defaultvalue) {
-        this.defaultvalue = defaultvalue == null ? null : defaultvalue.trim();
-    }
-
-    public Integer getSearchshow() {
-        return searchshow;
-    }
-
-    public void setSearchshow(Integer searchshow) {
-        this.searchshow = searchshow;
-    }
-
-    public Integer getImportandexportshow() {
-        return importandexportshow;
-    }
-
-    public void setImportandexportshow(Integer importandexportshow) {
-        this.importandexportshow = importandexportshow;
-    }
-
-    public Integer getRequired() {
-        return required;
-    }
-
-    public void setRequired(Integer required) {
-        this.required = required;
-    }
-
-    public Integer getEditable() {
-        return editable;
-    }
-
-    public void setEditable(Integer editable) {
-        this.editable = editable;
-    }
-
-    public Integer getUniqueness() {
-        return uniqueness;
-    }
-
-    public void setUniqueness(Integer uniqueness) {
-        this.uniqueness = uniqueness;
-    }
-
-    public String getValidexp() {
-        return validexp;
-    }
-
-    public void setValidexp(String validexp) {
-        this.validexp = validexp == null ? null : validexp.trim();
-    }
-
-    public String getValidmsg() {
-        return validmsg;
-    }
-
-    public void setValidmsg(String validmsg) {
-        this.validmsg = validmsg == null ? null : validmsg.trim();
-    }
+    /**
+     * This field was generated by MyBatis Generator.
+     * This field corresponds to the database table db_metadatas
+     *
+     * @mbggenerated Wed Jan 16 10:54:37 CST 2019
+     */
+    private static final long serialVersionUID = 1L;
 }

@@ -466,19 +466,6 @@ public class PersonalServiceImpl implements PersonalService {
 			if (metaList == null) {
 				metaList = new ArrayList<>();
 			}
-			List<MetadatasCustomBean> sysMetaList = Constants.initSysMetaList();
-			for (int i = 0; i < sysMetaList.size(); i++) {
-				MetadatasCustomBean meta = sysMetaList.get(i);
-				if (meta.getMetaType().equals("sys")) {
-					metaList.add(meta);
-				}
-				if (meta.getMetaType().equals("ware") && db.getIsware() == 1) {
-					metaList.add(meta);
-				}
-				if (meta.getMetaType().equals("base")) {
-					metaList.add(meta);
-				}
-			}
 
 			StringBuffer whereSql = new StringBuffer(" where status != -1 ");
 			if (dataLibrarysManageSearchBean.getUserId() > 0) {

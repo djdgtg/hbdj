@@ -64,10 +64,4 @@ public class MenusController {
         return menusService.del(menuId);
     }
 
-    @RequestMapping("/treeList")
-    @ResponseBody
-    public ActionResult treeList() {
-        return menusService.treeList();
-    }
-
 }

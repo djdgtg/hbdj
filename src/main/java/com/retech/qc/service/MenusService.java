@@ -20,6 +20,4 @@ public interface MenusService {
 
     ActionResult del(Integer menuId);
 
-    ActionResult treeList();
-
 }

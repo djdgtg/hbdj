@@ -13,8 +13,6 @@ $(document).ready(function () {
     // =================================================================
 
     var demoSetBody         = $('#demo-set'),
-        demoSetIcon         = $('#demo-set-icon'),
-        demoSetBtnGo        = $('#demo-set-btngo'),
         niftyContainer      = $('#container'),
         niftyMainNav        = $('#mainnav-container'),
         niftyAside          = $('#aside-container');
@@ -45,7 +43,7 @@ $(document).ready(function () {
             function bg_thumb_template(cat){
                 var list = '';
                 for (var i = 1; i < 17; i++) {
-                    list += '<a href="#" class="thumbnail box-inline"><img class="img-responsive" src="./premium/boxed-bg/'+cat+'/thumbs/'+i+'.jpg" alt="Background Image"></a>';
+                    list += '<a href="#" class="thumbnail box-inline"><img class="img-responsive" src="static/premium/boxed-bg/'+cat+'/thumbs/'+i+'.jpg" alt="Background Image"></a>';
                 }
                 return list;
             }
@@ -148,7 +146,6 @@ $(document).ready(function () {
                 }
             }
             transitionVal.onchange = function(){
-                var optionSelected = $("option:selected", this);
                 var valueSelected = this.options[this.selectedIndex].value;
                 if (valueSelected) {
                     niftyContainer.removeClass(effectList).addClass(valueSelected);
@@ -439,7 +436,7 @@ $(document).ready(function () {
             changeTheme = function (themeName, type) {
                 var themeCSS = $('#theme'),
                     fileext = '.min.css',
-                    filename = 'css/themes/type-' + type + '/' + themeName + fileext;
+                    filename = 'static/css/themes/type-' + type + '/' + themeName + fileext;
 
                 if (themeCSS.length) {
                     themeCSS.prop('href', filename);

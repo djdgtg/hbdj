@@ -54,7 +54,7 @@
         <div id="toolbar" class="table-toolbar-left">
             <button class="btn btn-primary" onclick="roleModal(0)"><i class="icon-plus"></i> 新增</button>
             <button class="btn btn-mint" onclick="roleModal(1)"><i class="icon-edit"></i> 修改</button>
-            <button class="btn btn-danger" onclick="delRole()"><i class="icon-close"></i> 删除</button>
+            <button class="btn btn-danger" onclick="delRole()"><i class="icon-remove"></i> 删除</button>
             <button onclick="menuModal()" class="btn"><i class="icon-cog"></i> 配置菜单</button>
             <input type="hidden" class="form-control" id="optype">
         </div>

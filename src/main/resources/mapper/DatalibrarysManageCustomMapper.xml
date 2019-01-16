@@ -8,18 +8,8 @@
     <result column="Description" property="description" jdbcType="VARCHAR" />
     <result column="MouldID" property="mouldid" jdbcType="INTEGER" />
     <result column="Status" property="status" jdbcType="INTEGER" />
-    <result column="DataStepType" property="datasteptype" jdbcType="INTEGER" />
-    <result column="DataStatus" property="datastatus" jdbcType="INTEGER" />
-    <result column="IsWare" property="isware" jdbcType="INTEGER" />
-    <result column="PerfectFileCol" property="perfectfilecol" jdbcType="VARCHAR" />
-    <result column="ProcessFileCol" property="processfilecol" jdbcType="VARCHAR" />
-    <result column="ReadFileCol" property="readfilecol" jdbcType="VARCHAR" />
     <result column="MouldName" property="mouldname" jdbcType="VARCHAR" />
-    <result column="MouldType" property="mouldtype" jdbcType="INTEGER" />
-    <result column="MouldTypeName" property="mouldtypename" jdbcType="VARCHAR" />
     <result column="StatusName" property="statusname" jdbcType="VARCHAR" />
-    <result column="DataStepTypeName" property="datasteptypename" jdbcType="VARCHAR" />
-    <result column="ParentMenuId" property="parentmenuid" jdbcType="INTEGER" />
   </resultMap>
   
   <sql id="Example_Where_Clause" >
@@ -53,9 +43,7 @@
   </sql>
   
   <sql id="Base_Column_List" >
-    DataBaseID, DataBaseName, DataBaseCName, a.Description, a.MouldID as MouldID, Status, DataStepType, ParentMenuId,
-    DataStatus, IsWare, PerfectFileCol, ProcessFileCol, ReadFileCol,b.MouldName as MouldName,b.MouldType as MouldType,
-    d.DicName as MouldTypeName,c.DicName as StatusName,e.DicName as DataStepTypeName
+    DataBaseID, DataBaseName, DataBaseCName, a.Description, a.MouldID as MouldID, Status,b.MouldName as MouldName,c.DicName as StatusName
   </sql>
   
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.retech.qc.entity.custom.DataLibrarysManageSearchBean" >
@@ -63,10 +51,7 @@
     <include refid="Base_Column_List" />
     from db_datalibrarys a left join db_moulds b on a.MouldID = b.MouldID
     left join base_dics c on a.Status = c.DicValue
-    left join base_dics d on b.MouldType = d.DicValue
-    left join base_dics e on a.DataStepType = e.DicValue
-    where c.isdictype = 0 and d.isdictype = 0 and e.isdictype = 0 
-    and c.dictype = 'globalstatus' and d.dictype = 'mouldtype' and e.dictype = 'ressteptype'
+    where c.isdictype = 0 and c.dictype = 'globalstatus'
     <if test="databaseName != null and databaseName != ''" >
     	and DataBaseName = #{databaseName}
     </if>
@@ -78,9 +63,6 @@
     </if>
     <if test="mouldId != null and mouldId != ''" >
     	and a.MouldID = #{mouldId}
-    </if>
-    <if test="isWare != null and isWare != ''" >
-    	and IsWare = #{isWare}
     </if>
     order by DataBaseID desc
   </select>
@@ -89,10 +71,7 @@
     select count(a.DataBaseID) 
     from db_datalibrarys a left join db_moulds b on a.MouldID = b.MouldID
     left join base_dics c on a.Status = c.DicValue
-    left join base_dics d on b.MouldType = d.DicValue
-    left join base_dics e on a.DataStepType = e.DicValue
-    where c.isdictype = 0 and d.isdictype = 0 and e.isdictype = 0 
-    and c.dictype = 'globalstatus' and d.dictype = 'mouldtype' and e.dictype = 'ressteptype'
+    where c.isdictype = 0 and c.dictype = 'globalstatus'
     <if test="databaseName != null and databaseName != ''" >
     	and DataBaseName = #{databaseName}
     </if>
@@ -104,9 +83,6 @@
     </if>
     <if test="mouldId != null and mouldId != ''" >
     	and a.MouldID = #{mouldId}
-    </if>
-    <if test="isWare != null and isWare != ''" >
-    	and IsWare = #{isWare}
     </if>
   </select>
   
@@ -151,24 +127,6 @@
       <if test="status != null" >
         Status,
       </if>
-      <if test="datasteptype != null" >
-        DataStepType,
-      </if>
-      <if test="datastatus != null" >
-        DataStatus,
-      </if>
-      <if test="isware != null" >
-        IsWare,
-      </if>
-      <if test="perfectfilecol != null" >
-        PerfectFileCol,
-      </if>
-      <if test="processfilecol != null" >
-        ProcessFileCol,
-      </if>
-      <if test="readfilecol != null" >
-        ReadFileCol,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="databaseid != null" >
@@ -188,24 +146,6 @@
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
-      </if>
-      <if test="datasteptype != null" >
-        #{datasteptype,jdbcType=INTEGER},
-      </if>
-      <if test="datastatus != null" >
-        #{datastatus,jdbcType=INTEGER},
-      </if>
-      <if test="isware != null" >
-        #{isware,jdbcType=INTEGER},
-      </if>
-      <if test="perfectfilecol != null" >
-        #{perfectfilecol,jdbcType=VARCHAR},
-      </if>
-      <if test="processfilecol != null" >
-        #{processfilecol,jdbcType=VARCHAR},
-      </if>
-      <if test="readfilecol != null" >
-        #{readfilecol,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -227,24 +167,6 @@
       </if>
       <if test="status != null" >
         Status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="datasteptype != null" >
-        DataStepType = #{datasteptype,jdbcType=INTEGER},
-      </if>
-      <if test="datastatus != null" >
-        DataStatus = #{datastatus,jdbcType=INTEGER},
-      </if>
-      <if test="isware != null" >
-        IsWare = #{isware,jdbcType=INTEGER},
-      </if>
-      <if test="perfectfilecol != null" >
-        PerfectFileCol = #{perfectfilecol,jdbcType=VARCHAR},
-      </if>
-      <if test="processfilecol != null" >
-        ProcessFileCol = #{processfilecol,jdbcType=VARCHAR},
-      </if>
-      <if test="readfilecol != null" >
-        ReadFileCol = #{readfilecol,jdbcType=VARCHAR},
       </if>
     </set>
     where DataBaseID = #{databaseid,jdbcType=INTEGER}

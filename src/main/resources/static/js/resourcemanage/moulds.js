@@ -10,9 +10,6 @@ $(window).on('load', function() {
 	loadMoulds();
 	//模型form验证
 	validForm();
-	//加载模型类型选项
-	var mouldTypeParam = {'isdictype':0,'dictype':'mouldtype'};
-	loadDicSelect("#typeSelect",mouldTypeParam);
 	//加载字段类型选项
 	var columnTypeParam = {'isdictype':0,'dictype':'columntype'};
 	loadDicSelect("#columnType",columnTypeParam);
@@ -39,7 +36,7 @@ $(window).on('load', function() {
 function loadMoulds(){
 	oTable = $("#mouldTb").bootstrapTable({
     	method: "post",  //使用get请求到服务器获取数据  
-        url: "../moulds/listCustom", //获取数据的Servlet地址  
+        url: "../moulds/list", //获取数据的Servlet地址
         striped: true,  //表格显示条纹  
         pagination: true, //启动分页  
         pageSize: 10,  //每页显示的记录数  
@@ -63,18 +60,8 @@ function loadMoulds(){
         	align: 'center',
         	valign: 'middle',
         },{
-        	field: 'mouldtypename',
-        	title: '模型类型',
-        },{   
         	field:"description",
         	title: '描述',
-        	formatter:function(value,index,row){
-	    		if(value == null){
-	    			return "";
-	    		}else{
-	    			return value;
-	    		}
-	    	}
 	    }],
         toolbar:"#toolbar"
     });
@@ -98,7 +85,6 @@ function mouldModal(optype){
 			return;
 		}else{
 			$("#mouldName").val(selMoulds[0].mouldname);
-			$("#mouldType").selectpicker('val',selMoulds[0].mouldtype);
 			$("#description").val(selMoulds[0].description);
 			$("#mouldId").val(selMoulds[0].mouldid);
 		}
@@ -191,7 +177,7 @@ function delMould(){
 		var mouldIds = "";  
 	  
 		for (var i = 0; i < selMoulds.length; i++) {  
-			mouldIds += selMoulds[i].mouldid + ","; 
+			mouldIds += selMoulds[i].mouldid + ",";
 		} 
 		mouldIds += 0;
 		bootbox.confirm("对应的知识库也会被删除,确定删除?", function(result) {
@@ -227,7 +213,7 @@ function setMetaData(){
         });
 		return;
 	}else{
-		var mouldId = selMoulds[0].mouldid; 
+		var mouldId = selMoulds[0].mouldid;
 		$("#metadatMouldId").val(mouldId);
 		//判断资源模型是否已被实例化资源库
 		checkIsCre(mouldId);
@@ -392,7 +378,7 @@ function loadMetaData(mouldId){
         		}
         	}
         },{
-        	field: 'uniqueness',
+        	field: 'only',
         	title: '是否值唯一',
         	formatter: function(value, index, row){
         		if(value == 1){
@@ -430,10 +416,10 @@ function metadataMsgModal(optype){
     $("#columnSource").parent().parent().hide();
 
 	var selMoulds = $("#mouldTb").bootstrapTable('getSelections');
-	var mouldId = selMoulds[0].mouldid; 
+	var mouldId = selMoulds[0].mouldid;
 	$("#metadatMouldId").val(mouldId);
-	$("#formShowYes,#gridShowYes,#searchShowYes,#importandexportShowYes,#requiredYes,#editableYes,#uniquenessYes").val("1");
-	$("#formShowNo,#gridShowNo,#searchShowNo,#importandexportShowNo,#requiredNo,#editableNo,#uniquenessNo").val("0");
+	$("#formShowYes,#gridShowYes,#searchShowYes,#importandexportShowYes,#requiredYes,#editableYes,#onlyYes").val("1");
+	$("#formShowNo,#gridShowNo,#searchShowNo,#importandexportShowNo,#requiredNo,#editableNo,#onlyNo").val("0");
 	if(optype == 1){
 		$("#metaModalTitle")[0].innerText = "修改字段";
 		var selMetadatas = $("#metadataTb").bootstrapTable('getSelections');
@@ -449,7 +435,7 @@ function metadataMsgModal(optype){
 	        $("input[name='importandexportshow']").get(selMetadatas[0].importandexportshow).checked = true;
 	        $("input[name='required']").get(selMetadatas[0].required).checked = true;
 	        $("input[name='editable']").get(selMetadatas[0].editable).checked = true;
-	        $("input[name='uniqueness']").get(selMetadatas[0].uniqueness).checked = true;
+	        $("input[name='only']").get(selMetadatas[0].only).checked = true;
 	        
 			$("#columnName").val(selMetadatas[0].columnname);
 			$("#columnCname").val(selMetadatas[0].columncname);
@@ -472,7 +458,7 @@ function metadataMsgModal(optype){
         $("input[name='importandexportshow']").get(0).checked = true;
         $("input[name='required']").get(0).checked = true;
         $("input[name='editable']").get(0).checked = true;
-        $("input[name='uniqueness']").get(0).checked = true;
+        $("input[name='only']").get(0).checked = true;
 	        
         $("#columnType").selectpicker("refresh");
 	}
@@ -533,12 +519,7 @@ function columnTypeRuleBind(columnTypeRule) {
     	var columnTypeRuleParam = {'isdictype':1};
     	//获取字典类型并设置默认值
     	loadDicSelect("#columnTypeRule",columnTypeRuleParam,columnTypeRule);
-    } /*else if (sourcetype == 2) {//分类
-        $("#ruleDiv").append("<label class='col-lg-3 control-label'>分类节点：</label>\n");
-        var comb = $('<div class="col-lg-7"><div id="columnTypeRule"/></div><input type="hidden" name="columntyperule" id="ruleValue"></div>').appendTo($("#ruleDiv"));
-        //获取分类列表并设置默认值
-        loadClasses("#columnTypeRule","#ruleValue",columnTypeRule);
-    }*/ else {//资源库
+    } else {//资源库
         $("#ruleDiv").hide();
     }
 }
@@ -643,7 +624,7 @@ function delMetadata(){
 		var metadataIds = "";  
 	  
 		for (var i = 0; i < selMetadatas.length; i++) {  
-			metadataIds += selMetadatas[i].metadataid + ","; 
+			metadataIds += selMetadatas[i].metadataid + ",";
 		} 
 		metadataIds += 0;
 		bootbox.confirm("确定删除?", function(result) {

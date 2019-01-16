@@ -1,12 +1,15 @@
 package com.retech.qc.interceptor;
 
 import com.retech.qc.entity.BaseManagers;
+import com.retech.qc.mapper.custom.MenusManageCustomMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 
 /**
@@ -16,6 +19,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
+
+    @Autowired
+    private MenusManageCustomMapper menusCustomMapper;
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
@@ -29,6 +35,13 @@ public class LoginInterceptor implements HandlerInterceptor {
         //获取session
         BaseManagers loginUser = (BaseManagers) request.getSession().getAttribute("USER_VALUE_OBJECT");
         if (loginUser != null) {
+            String contextPath = request.getContextPath()+"/";
+            List<String> alllist=menusCustomMapper.getMenusStringList(contextPath);
+            List<String>list=menusCustomMapper.getMenusStringListByUserId(loginUser.getUserid(),contextPath);
+            //如果菜单中有的页面但用户没有的页面，重定向至main
+            if(alllist.contains(uri)&&!list.contains(uri)){
+                response.sendRedirect(basePath + "/main");
+            }
             return true;
         }
         //如果request.getHeader("X-Requested-With") 返回的是"XMLHttpRequest"说明就是ajax请求，需要特殊处理

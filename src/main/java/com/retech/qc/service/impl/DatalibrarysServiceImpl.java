@@ -42,9 +42,6 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 	private MetadatasManageCustomMapper metadatasCustomMapper;
 
 	@Autowired
-	private DbMouldsMapper mouldsMapper;
-
-	@Autowired
 	private BaseDicsMapper dicsMapper;
 	
 	@Autowired
@@ -89,18 +86,6 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 				dbCustomBean.setDatabasename((Constants.SelfDBPrefix + dbCustomBean.getDatabasename()).toLowerCase());
 			}
 			dbCustomBean.setStatus(1);
-			if (dbCustomBean.getDatasteptype() != null) {
-				Integer dataStepType = dbCustomBean.getDatasteptype();
-				if (dataStepType == Constants.DATASTEPTYPE_JPUB) {
-					dbCustomBean.setDatastatus(Constants.RESTATUS_FORPROCESS);
-				} else if (dataStepType == Constants.DATASTEPTYPE_ONLYPUB) {
-					dbCustomBean.setDatastatus(Constants.RESTATUS_FORPUB);
-				} else if (dataStepType == Constants.DATASTEPTYPE_NOPUB) {
-					dbCustomBean.setDatastatus(Constants.RESTATUS_PUBED);
-				} else {
-					dbCustomBean.setDatastatus(Constants.RESTATUS_FORINDEX);
-				}
-			}
 		}
 	}
 
@@ -115,27 +100,6 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 			List<DbLibrarynexus> nexusList = customBean.getLibraryNexus();
 			if (nexusList != null) {
 				insertNexusList(customBean,nexusList);
-			}
-			List<String> columnList = datalibrarysCustomMapper.showColumns(customBean.getDatabasename());
-			if (columnList != null) {
-				List<MetadatasCustomBean> sysMetaList = Constants.initSysMetaList();
-				for (int i = 0; i < sysMetaList.size(); i++) {
-					boolean isTrue = columnList.contains(sysMetaList.get(i).getColumnname());
-					MetadatasCustomBean meta = sysMetaList.get(i);
-
-					if (meta.getMetaType().equals("ware") && customBean.getIsware() == 1) {
-						StringBuilder sqlAlter = new StringBuilder();
-						sqlAlter.append("alter table ").append(customBean.getDatabasename());
-						if (customBean.getIsware() == 1 && !isTrue) {// 需要价格等字段但没有，增加价格字段
-							sqlAlter.append(" add ").append(meta.getColumnname()).append(" ").append(meta.getDatatype())
-									.append("(").append(meta.getColumnlength()).append(") DEFAULT ")
-									.append(meta.getDefaultvalue());
-						} else if (customBean.getIsware() == 0 && isTrue) {// 删除价格等字段
-							sqlAlter.append(" drop ").append(meta.getColumnname());
-						}
-						datalibrarysCustomMapper.alterTable(sqlAlter.toString());
-					}
-				}
 			}
 		}
 		return ActionResult.ok();
@@ -163,26 +127,6 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 			List<DbLibrarynexus> nexusList = customBean.getLibraryNexus();
 			if (nexusList != null) {
 				insertNexusList(customBean,nexusList);
-			}
-			// 查询模型类型
-			DbMoulds mould = mouldsMapper.selectByPrimaryKey(customBean.getMouldid());
-
-			List<MetadatasCustomBean> sysMetaList = Constants.initSysMetaList();
-			for (int i = 0; i < sysMetaList.size(); i++) {
-				MetadatasCustomBean meta = sysMetaList.get(i);
-				if (meta.getMetaType().equals("sys")) {
-					metaList.add(meta);
-				}
-				if (meta.getMetaType().equals("source") && (mould != null && (mould.getMouldtype() == 3
-						|| customBean.getDatasteptype() == 2 || customBean.getDatasteptype() == 3))) {
-					metaList.add(meta);
-				}
-				if (meta.getMetaType().equals("ware") && customBean.getIsware() == 1) {
-					metaList.add(meta);
-				}
-				if (meta.getMetaType().equals("status")) {
-					meta.setDefaultvalue(customBean.getDatastatus().toString());
-				}
 			}
 			// 创建数据库表
 			String createSql = getCreateTableSQL(metaList, customBean.getDatabasename(), customBean.getDatabasecname());
@@ -276,22 +220,14 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 			}
 			List<MetadatasCustomBean> sysMetaList = Constants.initSysMetaList();
 			for (MetadatasCustomBean meta: sysMetaList) {
-				if (meta.getMetaType().equals("sys")) {
-					metaList.add(meta);
-				}
-				if (meta.getMetaType().equals("ware") && db.getIsware() == 1) {
-					metaList.add(meta);
-				}
-				if (meta.getMetaType().equals("base")) {
-					metaList.add(meta);
-				}
+				metaList.add(meta);
 			}
 			StringBuffer whereSql = new StringBuffer(" where 1 = 1 ");
 			if (dataLibrarysManageSearchBean.getUserId() > 0) {
 				whereSql.append(" and creatorid=").append(dataLibrarysManageSearchBean.getUserId());
 			}
 
-			List<MetadatasCustomBean> rMetaList = new ArrayList<MetadatasCustomBean>();
+			List<MetadatasCustomBean> rMetaList = new ArrayList<>();
 			String[] queryValues;
 			String showCol = "";
 			for (MetadatasCustomBean metadatasCustomBean : metaList) {
@@ -445,7 +381,7 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 
 			String sqlCount = "select count(1) from " + db.getDatabasename() + " " + whereSql.toString();
 			int count = datalibrarysCustomMapper.getResCount(sqlCount);
-			String sqlList = "";
+			String sqlList;
 			if (count > 0) {
 
 				StringBuffer ordersql = new StringBuffer(" ");
@@ -493,10 +429,10 @@ public class DatalibrarysServiceImpl implements DatalibrarysService {
 				}
 				List<LinkedHashMap<String, Object>> resList = datalibrarysCustomMapper.getResList(sqlList);
 
-				List<LinkedHashMap<String, Object>> resultList = new ArrayList<LinkedHashMap<String, Object>>();
+				List<LinkedHashMap<String, Object>> resultList = new ArrayList<>();
 
 				if (rMetaList != null && rMetaList.size() > 0) {
-					Map<String, List<?>> list = new HashMap<String, List<?>>();
+					Map<String, List<?>> list = new HashMap<>();
 					for (MetadatasCustomBean metaCustom : rMetaList) {
 						switch (metaCustom.getColumnsource()) {
 						case Constants.COlUMNSOURCE_DIC:

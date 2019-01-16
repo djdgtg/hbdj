@@ -10,6 +10,7 @@
     <link href="../static/css/nifty.min.css" rel="stylesheet">
     <!--DataTables [ OPTIONAL ]-->
     <link href="../static/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <!--bootstrap-select [ OPTIONAL ]-->
     <link href="../static/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
     <!--Bootstrap Validator [ OPTIONAL ]-->
     <link href="../static/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet">
@@ -56,7 +57,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">库名：</label>
                             <div class="col-sm-9">
-                                <input class="form-control" id="databaseName" name="databaseName"/>
+                                <input class="form-control" id="databasename" name="databaseName"/>
                             </div>
                         </div>
                     </div>
@@ -64,7 +65,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">库中文名：</label>
                             <div class="col-sm-9">
-                                <input class="form-control" id="databaseCName" name="databaseCName"/>
+                                <input class="form-control" id="databasecname" name="databaseCName"/>
                             </div>
                         </div>
                     </div>
@@ -72,7 +73,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">角色：</label>
+                            <label class="col-sm-3 control-label">状态：</label>
                             <div class="col-sm-9">
                                 <select class="selectpicker" id="status" name="status">
                                     <option value="" selected="selected">全部</option>
@@ -147,38 +148,6 @@
                     <div class="form-group" id="nexusListDiv">
                         <label class="col-lg-3 control-label">库关联：</label>
                         <div class="col-lg-7" id="nexusList">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">数据流程类型：</label>
-                        <div class="col-lg-7">
-                            <select class="selectpicker" name="datasteptype" id="dataStepTypeSel"></select>
-                        </div>
-                    </div>
-                    <div class="form-group" id="perfileColSelDiv">
-                        <label class="col-lg-3 control-label">标引文件字段：</label>
-                        <div class="col-lg-7">
-                            <select class="selectpicker" name="perfectfilecol" id="perfileColSel"></select>
-                        </div>
-                    </div>
-                    <div class="form-group" id="processFileColSelDiv">
-                        <label class="col-lg-3 control-label">加工文件字段：</label>
-                        <div class="col-lg-7">
-                            <select class="selectpicker" name="processfilecol" id="processFileColSel"></select>
-                        </div>
-                    </div>
-                    <div class="form-group" id="readFileColSelDiv">
-                        <label class="col-lg-3 control-label">阅读文件字段：</label>
-                        <div class="col-lg-7">
-                            <select class="selectpicker" name="readFileCol" id="readFileColSel"></select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">是否商品库：</label>
-                        <div class="col-lg-7">
-                            <input type="hidden" name="isware" id="isWare">
-                            <input type="checkbox" class="magic-checkbox" id="isWareCheckbox">
-                            <label for="isWareCheckbox"></label>系统自动添加价格和折扣字段
                         </div>
                     </div>
                     <div class="form-group">

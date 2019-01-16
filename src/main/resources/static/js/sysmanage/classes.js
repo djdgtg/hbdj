@@ -107,10 +107,6 @@ function classModal(optype){
 			var classImg = selClass.classimg;
 			var classDescription = selClass.classDescription;
 			var sort = selClass.sort;
-
-	        var checkableNodes = $("#parentclassid_seltree").treeview('search', [ String(parentClassId), { ignoreCase: false, exactMatch: true } ]);
-	        $("#parentclassid_seltree").treeview('selectNode', [ checkableNodes, { silent: true }]);
-            var parentClsName = "--请选择--";
 	        if(parentClassId != 0){
 	        	parentClsName = selClass.parentclassname;
 	        }

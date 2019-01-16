@@ -269,6 +269,23 @@ function getUrlParam(name) {
     return null;
 }
 
+function getChildNodeIdArr(node) {
+    var ts = [];
+    if (node.nodes) {
+        for (x in node.nodes) {
+            ts.push(node.nodes[x].nodeId);
+            if (node.nodes[x].nodes) {
+                var getNodeDieDai = getChildNodeIdArr(node.nodes[x]);
+                for (j in getNodeDieDai) {
+                    ts.push(getNodeDieDai[j]);
+                }
+            }
+        }
+    } else {
+        ts.push(node.nodeId);
+    }
+    return ts;
+}
 
 Date.prototype.Format = function (fmt) { //author: meizz 
 	 var o = {
@@ -293,4 +310,31 @@ function dateFormat( data, type, full ) {
 		var date = new Date(data);
 		return date.Format("yyyy-MM-dd hh:mm:ss");
 	}
+}
+
+// 校验正整数
+function isPositiveInteger(s) {// 是否为正整数
+    var re = /^[1-9]\d*$/;
+    return re.test(s)
+}
+
+/**
+ * 获取当前时间
+ * @returns {String}
+ */
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1
+        + strDate;
+    return currentdate;
 }

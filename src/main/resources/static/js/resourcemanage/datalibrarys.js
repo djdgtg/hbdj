@@ -10,7 +10,7 @@ var nexusList = null; //数据库选项
 
 var nexusDataMsg = null;
 
-$(window).on('load', function() {    
+$(window).on('load', function() {
 	loadModalSelect("#mouldSel",'',null,null,true);
 	loadDbLibrays();
 
@@ -31,7 +31,6 @@ $(window).on('load', function() {
     	var databasename = $('#sdbNameSel').val();
     	loadDbMeta(databasename,null);
     });
-
     //关系字段选项名切换
     $('#sdbNameFieldSel').on('change',function(){
     	loadSdbSql();
@@ -41,14 +40,8 @@ $(window).on('load', function() {
     $('#sdbValueSel').on('change',function(){
     	loadSdbSql();
     });
-    
-   
-    
     validDbForm();
-    
     validNexusForm();
-    
-    
     $('#dbLibModal').on('hidden.bs.modal', function() {
 	    $("#dbLibModal").data('bootstrapValidator').destroy();
 	    $('#dbLibModal').data('bootstrapValidator', null);
@@ -69,7 +62,7 @@ function loadDbLibrays(){
 	oTable = $("#datalibraryTb").bootstrapTable({
     	method: "post",  //使用post请求到服务器获取数据  
     	contentType : "application/x-www-form-urlencoded",
-        url: "../datalibrarys/listCustom", //获取数据的Servlet地址  
+        url: "../datalibrarys/listCustom", //获取数据的Servlet地址
         queryParams: function () {
             return $("#searchForm").serializeArray()
 		},
@@ -105,25 +98,12 @@ function loadDbLibrays(){
         	field: 'mouldname',
         	title: '模型名称',
         },{
-        	field: 'mouldtypename',
-        	title: '模型类型',
-        },{
-        	field: 'statusname',
-        	title: '状态',
-        },{
-        	field: 'datasteptypename',
-        	title: '数据流程类型',
-        },{   
         	field:"description",
         	title: '描述',
-        	formatter:function(value,index,row){
-	    		if(value == null){
-	    			return "";
-	    		}else{
-	    			return value;
-	    		}
-	    	}
-	    }],
+	    },{
+            field: 'statusname',
+            title: '状态',
+        }],
         toolbar:"#toolbar"
     });
 }
@@ -142,10 +122,6 @@ function datalibraryModal(optype){
 	$("#nexusDataListDiv").children().remove();
 	$("#optype").val(optype);
 	var choseId,databaseId = null;
-
-	//加载模型类型选项
-	var mouldTypeParam = {'isdictype':0,'dictype':'ressteptype'};
-	loadDicSelect("#dataStepTypeSel",mouldTypeParam);
 	var db = null;
 	if(optype == 1){
 		$("#modalTitle")[0].innerText = "修改资源库";
@@ -166,17 +142,7 @@ function datalibraryModal(optype){
 			$("#databaseCName").val(selDatalibrarys[0].databasecname);
 			$("#databaseId").val(databaseId);
 			$("#dbMouldSelect").selectpicker('val',choseId);
-			$("#dataStepTypeSel").selectpicker('val',selDatalibrarys[0].datasteptype);
-			$("#perfileColSel").selectpicker('val',selDatalibrarys[0].perfectfilecol);
-			$("#processFileColSel").selectpicker('val',selDatalibrarys[0].processfilecol);
-			$("#readFileColSel").selectpicker('val',selDatalibrarys[0].readfilecol);
 			$("#description").val(selDatalibrarys[0].description);
-			var isWare = selDatalibrarys[0].isware;
-			if(isWare == 0){
-                $("#isWareCheckbox").attr("checked",false);
-			}else{
-                $("#isWareCheckbox").attr("checked",true);
-			}
 		}
 	}else{
 		$("#modalTitle")[0].innerText = "新增资源库";
@@ -214,69 +180,13 @@ function loadModalSelect(selId,mouldId,databaseId,database,isAll){
 	                $(selId).selectpicker("show");
 	         	}
 	    		if(!isAll){
-		    		loadDbCol(mouldId,database);
 		    		loadLibraryNexus(mouldId,databaseId);
 	    		}
-	    	} else {
-	    		bootbox.alert(data.msg);
 	    	}
 		}
 	});
 }
 
-/**
- * 加载标引、加工、阅读文件字段
- * @param mouldId
- * @param database
- */
-function loadDbCol(mouldId,database){
-	$("#perfileColSel").children().remove();
-	$("#processFileColSel").children().remove();
-	$("#readFileColSel").children().remove();
-	var readFileCol,processFileCol,perfileCol;
-	$.ajax({
-		type: "POST",
-		url: "../metadatas/list",
-		data: {'mouldId':mouldId},
-	    success: function(data) {
-	    	if (data.status == 200) {
-	    		if(data.data != null){
-                    $("#perfileColSel").append("<option value=''>  </option>");  
-                    $("#readFileColSel").append("<option value=''>--不指定--</option>");  
-	                 $.each(data.data, function (index, meta) {  
-	                     $("#perfileColSel").append("<option value='" + meta.columnname + "'>" + meta.columncname + "</option>");  
-	                     $("#processFileColSel").append("<option value='" + meta.columnname + "'>" + meta.columncname + "</option>");  
-	                     $("#readFileColSel").append("<option value='" + meta.columnname + "'>" + meta.columncname + "</option>");  
-	                 });  
-	                 if(database == undefined || database == null || database.readfilecol == null){
-	                	 readFileCol = '';
-	                 }
-	                 if(database == undefined || database == null || database.processfilecol == null){
-	                	 processFileCol = data.data[0].columnname;
-	                 }
-	                 if(database == undefined || database == null || database.perfilecol == null){
-	                	 perfileCol = '';
-	                 }
-	     			 $("#perfileColSel").selectpicker('val',perfileCol);
-	                 $("#perfileColSel").selectpicker("refresh");
-	                 $("#perfileColSel").selectpicker("show");
-	                 
-	     			 $("#processFileColSel").selectpicker('val',processFileCol);
-	                 $("#processFileColSel").selectpicker("refresh");
-	                 $("#processFileColSel").selectpicker("show");
-
-	     			 $("#readFileColSel").selectpicker('val',readFileCol);
-	                 $("#readFileColSel").selectpicker("refresh");
-	                 $("#readFileColSel").selectpicker("show");
-	                 
-	                 stepSetDbcol();
-	         	}
-	    	} else {
-	    		bootbox.alert(data.msg);
-	    	}
-		}
-	});
-}
 
 /**
  * 加载库关联
@@ -381,17 +291,17 @@ function loadDbMeta(databaseName,nexusData){
         success: function (data) {
             dboptiondata = data;
     		if(data.data != null){
-    			 $("#sdbNameFieldSel").append("<option value='seqid'>主键Id</option>"); 
-                 $("#sdbValueSel").append("<option value='seqid'>主键Id</option>"); 
-                $.each(data.data, function (index, meta) {  
-                    $("#sdbNameFieldSel").append("<option value='" + meta.columnname + "'>" + meta.columncname + "</option>"); 
-                    $("#sdbValueSel").append("<option value='" + meta.columnname + "'>" + meta.columncname + "</option>");  
-                });  
+    			 $("#sdbNameFieldSel").append("<option value='seqid'>主键Id</option>");
+                 $("#sdbValueSel").append("<option value='seqid'>主键Id</option>");
+                $.each(data.data, function (index, meta) {
+                    $("#sdbNameFieldSel").append("<option value='" + meta.columnname + "'>" + meta.columncname + "</option>");
+                    $("#sdbValueSel").append("<option value='" + meta.columnname + "'>" + meta.columncname + "</option>");
+                });
                 if(nexusData == null || nexusData.sdbnamefield == undefined || nexusData.sdbnamefield == null){
                 	sdbnamefield = data.data[0].columnname;
                 }else{
                 	sdbnamefield = nexusData.sdbnamefield;
-                }  
+                }
                 if(nexusData == null || nexusData.sdbvaluefield == undefined || nexusData.sdbvaluefield == null){
                 	sdbvaluefield = data.data[0].columnname;
                 }else{
@@ -400,12 +310,12 @@ function loadDbMeta(databaseName,nexusData){
     			$("#sdbNameFieldSel").selectpicker('val',sdbnamefield);
                 $("#sdbNameFieldSel").selectpicker("refresh");
                 $("#sdbNameFieldSel").selectpicker("show");
-                
+
 
     			$("#sdbValueSel").selectpicker('val',sdbvaluefield);
                 $("#sdbValueSel").selectpicker("refresh");
                 $("#sdbValueSel").selectpicker("show");
-                
+
                 loadSdbSql();
         	}
         }
@@ -423,26 +333,6 @@ function loadSdbSql(){
     $("#sdbSql").val(sdbsql);
 }
 
-
-/**
- * 根据数据流程类型的选择，设置标引文件字段，加工文件字段,加工目标库 的显示  
- */
-function stepSetDbcol() {
-	var selvalue = $("#dataStepTypeSel").val();
-    if (selvalue == 3) {
-        $("#perfileColSelDiv").show();
-        $("#processFileColSelDiv").show();
-    }else if (selvalue == 2) {
-        $("#processFileColSelDiv").show();
-        $("#perfileColSelDiv").hide();
-    }else if (selvalue == 1) {
-        $("#perfileColSelDiv").show();
-        $("#processFileColSelDiv").hide();
-    }else {
-        $("#perfileColSelDiv").hide();
-        $("#processFileColSelDiv").hide();
-    }
-}
 
 //mould表单验证
 function validDbForm(){

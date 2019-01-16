@@ -3,6 +3,7 @@ package com.retech.qc.mapper.custom;
 import com.retech.qc.entity.BaseMenus;
 import com.retech.qc.entity.BaseMenusExample;
 import com.retech.qc.entity.custom.MenusCustomBean;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public interface MenusManageCustomMapper {
 
     List<MenusCustomBean> getRolesMenus(Integer userid);
 
-    List<String> getMenusStringList();
+    List<String> getMenusStringList(String contextPath);
 
-    List<String> getMenusStringListByUserId(Integer id);
+    List<String> getMenusStringListByUserId(@Param("id") Integer id,@Param("contextPath") String contextPath);
 }

@@ -16,9 +16,9 @@
     <link rel="icon" type="image/png" sizes="96x96" href="static/img/logo.png">
     <link href="static/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet"/>
     <script src="static/js/jquery-2.2.4.min.js"></script>
-    <script src="static/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="static/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
     <script src="static/plugins/bootbox/bootbox.min.js"></script>
+    <script src="static/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
     <script src="static/js/login.js"></script>
 </head>
 
@@ -38,12 +38,10 @@
                         </div>
                         <form class="form-auth-small" id="loginForm">
                             <div class="form-group">
-                                <label for="username" class="control-label sr-only">Username</label>
                                 <input type="text" class="form-control" id="username" name="username"
                                        placeholder="username">
                             </div>
                             <div class="form-group">
-                                <label for="password" class="control-label sr-only">Password</label>
                                 <input type="password" class="form-control" id="password" name="passwd"
                                        placeholder="password">
                             </div>

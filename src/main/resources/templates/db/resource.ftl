@@ -10,11 +10,12 @@
     <link href="../static/css/nifty.min.css" rel="stylesheet">
     <!--DataTables [ OPTIONAL ]-->
     <link href="../static/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../static/plugins/bootstrap-table/extensions/page-jump/bootstrap-table-pagejump.css" rel="stylesheet">
     <!--jquery treegrid [ OPTIONAL ]-->
     <link href="../static/plugins/treegrid/jquery.treegrid.css" rel="stylesheet">
 
     <!--Font Awesome [ OPTIONAL ]-->
-    <link rel="stylesheet" href="../static/plugins/font-awesome/css/font-awesome.min.css">
+    <link href="../static/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!--Bootstrap Validator [ OPTIONAL ]-->
     <link href="../static/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet">
 
@@ -30,11 +31,10 @@
     <script src="../static/plugins/bootbox/bootbox.min.js"></script>
     <script src="../static/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="../static/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="../static/plugins/bootstrap-table/extensions/page-jump/bootstrap-table-pagejump.js"></script>
     <!-- <script src="../static/plugins/treegrid/jquery.treegrid.bootstrap3.js"></script> -->
     <!--Bootstrap Validator [ OPTIONAL ]-->
     <script src="../static/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
-    <!--Masked Input [ OPTIONAL ]-->
-    <script src="../static/plugins/masked-input/jquery.maskedinput.min.js"></script>
 
     <!--Bootstrap Select [ OPTIONAL ]-->
     <script src="../static/plugins/bootstrap-select/bootstrap-select.min.js"></script>

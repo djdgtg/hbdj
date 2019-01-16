@@ -1,9 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <!-- %m输出的信息, %p日志级别, %t线程名, %d日期, %c类的全名, %i索引 -->
-    <!-- appender是configuration的子节点,是负责写日志的组件 -->
-    <!-- ConsoleAppender把日志输出到控制台 -->
-    <!--    <property name="CONSOLE_LOG_PATTERN" -->
-    <!--               value="%date{yyyy-MM-dd HH:mm:ss} | %highlight(%-5level) | %boldYellow(%thread) | %boldGreen(%logger) | %msg%n"/> -->
+    <property name="catalina.base" value="D:/logs/qc"/>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <!--<pattern>${CONSOLE_LOG_PATTERN}</pattern> -->
@@ -41,13 +38,13 @@
         </encoder>
     </appender>
     <!-- 控制台日志输出级别 -->
-    <root level="info">
+    <root level="DEBUG">
         <appender-ref ref="STDOUT" />
     </root>
     <!-- 指定项目中某个包，当有日志操作行为时的日志记录级别 -->
     <!-- com.appley为根包，也就是只要是发生在这个根包下面的所有日志操作行为的权限都是DEBUG -->
     <!-- 级别依次为【从高到低】：FATAL > ERROR > WARN > INFO > DEBUG > TRACE  -->
-    <logger name="com.retech.qc" level="DEBUG">
+    <logger name="com.retech.qc.mapper" level="DEBUG">
         <appender-ref ref="syslog" />
     </logger>
 </configuration>

@@ -10,8 +10,6 @@ import com.retech.qc.utils.ActionResult;
  */
 public interface MouldsService {
 
-    ActionResult listCustom();
-
     ActionResult add(DbMoulds dbMoulds);
 
     ActionResult update(DbMoulds dbMoulds);

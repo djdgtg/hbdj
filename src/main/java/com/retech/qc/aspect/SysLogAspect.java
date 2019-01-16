@@ -40,7 +40,7 @@ public class SysLogAspect {
     }
 
     @AfterReturning("actionAspect() && @annotation(logAnnotation)")
-    public void afterReturn(JoinPoint joinPoint, LogAnnotation logAnnotation) {
+    public void afterReturn(LogAnnotation logAnnotation) {
         try {
             BaseManagers loginUser = (BaseManagers) request.getSession().getAttribute("USER_VALUE_OBJECT");
             String logtype = logAnnotation.logtype();

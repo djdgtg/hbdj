@@ -156,18 +156,12 @@ public class MetadatasServiceImpl implements MetadatasService {
 			
 			List<DatalibrarysCustomBean> dbList = datalibrarysCustomMapper.selectByExample(dataLibrarysManageSearchBean);
 			if(dbList != null){
-				DatalibrarysCustomBean db = dbList.get(0);
 				List<MetadatasCustomBean> sysMetaList = Constants.initSysMetaList();
 				for (int i = 0;i < sysMetaList.size(); i++) {
 					MetadatasCustomBean meta = sysMetaList.get(i);
-					if (meta.getMetaType().equals("sys") || meta.getMetaType().equals("base") || (meta.getMetaType().equals("ware") && db.getIsware() == 1) || (meta.getMetaType().equals("source") && db.getMouldtype() == 3)){
-						if(meta.getColumnname().equals("status")){
-							meta.setDefaultvalue("");
-						}
-						boolean isNull = StringUtils.isEmpty(fieldName);
-						if(isNull || (!isNull && fieldName.equals("FormShow") && meta.getFormshow() == fieldValue) || (!isNull && fieldName.equals("GridShow") && meta.getGridshow() == fieldValue) || (!isNull && fieldName.equals("SearchShow") && meta.getSearchshow() == fieldValue)){
-							metadataList.add(meta);
-						}
+					boolean isNull = StringUtils.isEmpty(fieldName);
+					if(isNull || (!isNull && fieldName.equals("FormShow") && meta.getFormshow() == fieldValue) || (!isNull && fieldName.equals("GridShow") && meta.getGridshow() == fieldValue) || (!isNull && fieldName.equals("SearchShow") && meta.getSearchshow() == fieldValue)){
+						metadataList.add(meta);
 					}
 				}
 			}

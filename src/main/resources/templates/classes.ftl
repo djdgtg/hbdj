@@ -15,7 +15,7 @@
     <!--Ion Icons [ OPTIONAL ]-->
     <link href="static/plugins/bootstrap-treeview/bootstrap-treeview.css" rel="stylesheet">
     <link href="static/plugins/treegrid/jquery.treegrid.css" rel="stylesheet"/>
-
+    <link href="static/css/style.css" rel="stylesheet"/>
     <!--jQuery [ REQUIRED ]-->
     <script src="static/js/jquery-2.2.4.min.js"></script>
     <script src="static/plugins/bootstrap-treeview/bootstrap-treeview.js"></script>
@@ -92,7 +92,6 @@
                         <div class="col-lg-7">
                             <input name="parentclassid" id="classSelect" type="text" class="form-control"
                                    placeholder="父分类编号"/>
-                            <input name="parentclassid" id="parentClassId" type="hidden" class="form-control"/>
                         </div>
                     </div>
                     <br>

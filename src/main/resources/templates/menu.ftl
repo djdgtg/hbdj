@@ -18,6 +18,7 @@
     <link href="static/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet">
 
     <link href="static/plugins/treegrid/jquery.treegrid.css" rel="stylesheet"/>
+    <link href="static/css/style.css" rel="stylesheet"/>
     <!--jQuery [ REQUIRED ]-->
     <script src="static/js/jquery-2.2.4.min.js"></script>
     <script src="static/plugins/bootstrap-treeview/bootstrap-treeview.js"></script>
@@ -96,9 +97,7 @@
                         <div class="form-group">
                             <label class="col-lg-3 control-label">父级菜单：</label>
                             <div class="col-lg-7">
-                                <input name="parentmenuid" id="parentMenuSelect" type="text" class="form-control"
-                                       placeholder="顶级菜单"/>
-                                <input name="parentmenuid" id="parentMenuId" type="hidden"/>
+                                <input name="parentmenuid" id="parentMenuSelect" type="text" class="form-control" placeholder="顶级菜单" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -122,9 +121,7 @@
                         <div class="form-group">
                             <label class="col-lg-3 control-label">外链：</label>
                             <div class="col-lg-7">
-                                <input type="checkbox" class="magic-checkbox" name="isoutlink" id="isOutLinkCheckbox">
-                                <label for="isOutLinkCheckbox"></label>
-                                <input type="hidden" name="isoutlink" id="isOutLink">
+                                <input type="checkbox" name="isoutlink" id="isOutLinkCheckbox">
                             </div>
                         </div>
                         <div class="form-group">
@@ -134,13 +131,12 @@
                                 <input type="hidden" class="form-control" name="menuid" id="menuId">
                             </div>
                         </div>
-                    </div>
 
-                    <!--Modal footer-->
-                    <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
-                        <button class="btn btn-primary">保存</button>
-                    </div>
+                        <!--Modal footer-->
+                        <div class="modal-footer">
+                            <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
+                            <button class="btn btn-primary">保存</button>
+                        </div>
                 </form>
             </div>
         </div>

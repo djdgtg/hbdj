@@ -23,7 +23,6 @@ public interface DatalibrarysManageCustomMapper {
 
     int deleteBatch(List<String> dbids);
 
-
     int insertSelective(DatalibrarysCustomBean record);
 
     int updateByPrimaryKeySelective(DatalibrarysCustomBean record);
