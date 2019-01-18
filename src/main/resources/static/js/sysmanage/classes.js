@@ -107,6 +107,7 @@ function classModal(optype){
 			var classImg = selClass.classimg;
 			var classDescription = selClass.classDescription;
 			var sort = selClass.sort;
+			var parentClsName;
 	        if(parentClassId != 0){
 	        	parentClsName = selClass.parentclassname;
 	        }

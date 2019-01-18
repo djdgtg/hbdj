@@ -2,6 +2,7 @@ package com.retech.qc.controller;
 
 import com.retech.qc.aspect.LogAnnotation;
 import com.retech.qc.aspect.LogType;
+import com.retech.qc.entity.BaseClasses;
 import com.retech.qc.entity.BaseDics;
 import com.retech.qc.service.DicsService;
 import com.retech.qc.utils.ActionResult;

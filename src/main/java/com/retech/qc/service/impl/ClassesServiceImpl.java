@@ -45,7 +45,7 @@ public class ClassesServiceImpl implements ClassesService {
     private List<ClassesCustomBean> iterateClassTree(List<ClassesCustomBean> clsVoList,int pid){  
         List<ClassesCustomBean> result = new ArrayList<>();
         for (ClassesCustomBean clsVo : clsVoList) {
-            int clsId = clsVo.getClassid();//获取菜单的id  
+            int clsId = clsVo.getClassid();//获取菜单的id
             int parentId = clsVo.getParentclassid();//获取菜单的父id  
             if(parentId == pid){    
                 List<ClassesCustomBean> iterateCls = iterateClassTree(clsVoList,clsId);   
